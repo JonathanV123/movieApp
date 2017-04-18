@@ -1,9 +1,6 @@
 import React from 'react';
 
 export default class Oct extends React.Component {
-    constructor() {
-        super();
-    }
     render() {
         return (
             <div id="testing">
