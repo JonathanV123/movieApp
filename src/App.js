@@ -7,24 +7,9 @@ import './App.css';
 class App extends React.Component {
     constructor() {
         super();
-        this.renderThirtyDaysInMonth = this.renderThirtyDaysInMonth.bind(this);
-        this.createDaysInMonth = this.createDaysInMonth.bind(this);
         this.state = {
             monthData:[]
         };
-    }
-    createDaysInMonth() {
-        const dayObject = {
-            description: null,
-            picture: null,
-            key: Date.now(),
-        };
-    }
-    renderThirtyDaysInMonth() {
-        console.log("detected thirty function");
-        for(let i= 0; i < 30; i++){
-            this.state.dateData.push()
-        }
     }
     render() {
         return (

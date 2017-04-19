@@ -1,6 +1,7 @@
 
 import React from 'react';
-import CreateDayInMonth from './CreateDayInMonth.js'
+import CreateDayInWeek from './CreateDayInWeek.js'
+
 export default class CreateMonth extends React.Component {
     constructor() {
         super();
@@ -16,7 +17,7 @@ export default class CreateMonth extends React.Component {
     render(){
         return(
             <div className="blah">
-                <CreateDayInMonth />
+                <CreateDayInWeek />
             </div>
         )
     }
