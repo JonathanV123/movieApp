@@ -8,7 +8,6 @@ class App extends React.Component {
     constructor() {
         super();
         this.renderThirtyDaysInMonth = this.renderThirtyDaysInMonth.bind(this);
-        this.renderThirtyOneDaysInMonth = this.renderThirtyOneDaysInMonth.bind(this);
         this.createDaysInMonth = this.createDaysInMonth.bind(this);
         this.state = {
             monthData:[]

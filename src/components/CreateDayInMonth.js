@@ -1,21 +1,24 @@
-
 import React from 'react';
 
 export default class CreateDayInMonth extends React.Component {
     constructor() {
         super();
-        this.createDay = this.createDay.bind(this);
-
+        // this.createDay = this.createDay.bind(this);
         this.state = {
-            day: true
+            dayData: []
         }
     }
-    createDay(){
-        const dayObject = {
-            description: null,
-            picture: null,
-            key: Date.now(),
-        };
-    this.createDay();
+
+    render() {
+        return (
+            <div className="ok">
+            </div>
+        )
     }
+    // createDay(){
+    //     for(var i=0; i<30; i++){
+    //
+    //     }
+    // this.createDay();
+    // }
 }
