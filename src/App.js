@@ -8,32 +8,12 @@ import './App.css';
 class App extends React.Component {
     constructor() {
         super();
-        this.initYearAndMonth = this.initYearAndMonth.bind(this);
-        this.weekDays = this.weekDays.bind(this);
         this.prevMonth = this.prevMonth.bind(this);
         this.nextMonth = this.nextMonth.bind(this);
         this.state = {
-            currentYear: [new Date().getFullYear()],
-            currentMonth: [new Date().getMonth()],
-            selectedDay: [],
-            dayOfWeek: []
+            currentYear: new Date().getFullYear(),
+            currentMonth: new Date().getMonth(),
         };
-    }
-    initYearAndMonth() {
-        // let currentDate = new Date();
-        // let year = currentDate.getFullYear();
-        // let month = currentDate.getMonth();
-        // this.state.currentYear.push(year);
-        // this.state.currentMonth.push(month);
-
-    }
-    weekDays() {
-        const weekDays = ["Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun"];
-        let text = "";
-        for (var i = 0; i < weekDays.length; i++) {
-            let newText = text + weekDays[i];
-            this.state.dayOfWeek.push(<div className='weekDay' key={newText}>{newText}</div>);
-        }
     }
     prevMonth() {
         console.log("prev clicked");
@@ -59,7 +39,6 @@ class App extends React.Component {
         return (
             <div className="App">
                 <Header/>
-                {this.initYearAndMonth()}
                 <CreateYear currentYear={this.state.currentYear}/>
                 <CreateMonth
                    currentMonth={this.state.currentMonth}
@@ -67,8 +46,6 @@ class App extends React.Component {
                    prevMonth={this.nextMonth}
                    inItYearAndMoth={this.initYearAndMonth}
                 />
-                {this.weekDays()}
-                {this.state.dayOfWeek}
                 <CreateDays
                    theSelectedDay={this.state.selectedDay}
                    theCurrentYear={this.state.currentYear}

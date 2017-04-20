@@ -29,3 +29,11 @@ export default class CreateDays extends React.Component {
         )
     }
 }
+//
+// dayToDayNumber = {
+//     monday: [1, 8, 15]
+// }
+//
+//     for day in Day
+
+
