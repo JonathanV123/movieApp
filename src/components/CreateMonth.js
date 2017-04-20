@@ -5,25 +5,20 @@ import React from 'react';
 export default class CreateMonth extends React.Component {
     constructor() {
         super();
-        this.renderMonth = this.renderMonth.bind(this);
         this.state = {
             month: null
         }
     }
-    renderMonth() {
-        // return this.props.movie.map(function (film) {
-        //     return <CreateDays
-        //         key={film.key}
-        //         description={film.description}
-        //         picture={film.picture}
-        //     />
-        // }, this)
-    }
-
     render(){
         return(
             <div className="monthContainer">
+                <button onClick={(e) =>this.props.prevMonth(e)}>
+                    Previous Month
+                </button>
                 {this.props.currentMonth}
+                <button onClick={ (e) =>this.props.nextMonth(e)}>
+                    Next Month
+                </button>
             </div>
         )
     }

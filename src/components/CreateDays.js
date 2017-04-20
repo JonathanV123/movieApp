@@ -16,13 +16,13 @@ export default class CreateDays extends React.Component {
     }
     renderDaysInMonth(amt){
         for(var i = 1; i < amt; i++){
-            this.state.dayRender.push(<div className='day' key={i}>{[i]}</div>);
+            this.state.dayRender.push(<div className='day' key={[i]}>{[i]}</div>);
         }
     }
     render() {
         return (
             <div className="dayContainer">
-                {this.daysInMonth(this.props.currentMonth,this.props.currentYear)}
+                {this.daysInMonth(this.props.theCurrentMonth,this.props.theCurrentYear)}
                 {this.renderDaysInMonth(this.state.dayData)}
                 {this.state.dayRender}
             </div>

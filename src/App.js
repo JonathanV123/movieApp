@@ -8,43 +8,75 @@ import './App.css';
 class App extends React.Component {
     constructor() {
         super();
-        this.getDates = this.getDates.bind(this);
-        this.renderYearAndMonth = this.renderYearAndMonth.bind(this);
+        this.initYearAndMonth = this.initYearAndMonth.bind(this);
+        this.weekDays = this.weekDays.bind(this);
+        this.prevMonth = this.prevMonth.bind(this);
+        this.nextMonth = this.nextMonth.bind(this);
         this.state = {
-            currentYear: [],
-            currentMonth: [],
+            currentYear: [new Date().getFullYear()],
+            currentMonth: [new Date().getMonth()],
             selectedDay: [],
+            dayOfWeek: []
         };
     }
+    initYearAndMonth() {
+        // let currentDate = new Date();
+        // let year = currentDate.getFullYear();
+        // let month = currentDate.getMonth();
+        // this.state.currentYear.push(year);
+        // this.state.currentMonth.push(month);
 
-    getDates() {
-        let currentDate = new Date();
-        let year = currentDate.getFullYear();
-        let month = currentDate.getMonth();
-        let day = currentDate.getDate();
-        this.renderYearAndMonth(year, month)
     }
-
-    renderYearAndMonth(year, month) {
-        this.state.currentYear.push(year);
-        this.state.currentMonth.push(month);
+    weekDays() {
+        const weekDays = ["Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun"];
+        let text = "";
+        for (var i = 0; i < weekDays.length; i++) {
+            let newText = text + weekDays[i];
+            this.state.dayOfWeek.push(<div className='weekDay' key={newText}>{newText}</div>);
+        }
+    }
+    prevMonth() {
+        console.log("prev clicked");
+        let currentMonthIs = this.state.currentMonth;
+        console.log(currentMonthIs);
+        let prevMonthIs = currentMonthIs + 1;
+        console.log(prevMonthIs);
+        this.setState({
+            currentMonth: prevMonthIs,
+        })
+    }
+    nextMonth() {
+        console.log("next clicked");
+        let currentMonthIs = this.state.currentMonth;
+        let nextMonthIs = currentMonthIs - 1;
+        console.log(currentMonthIs);
+        this.setState({
+            currentMonth: nextMonthIs,
+        })
     }
 
     render() {
         return (
             <div className="App">
                 <Header/>
-                {this.getDates()}
+                {this.initYearAndMonth()}
                 <CreateYear currentYear={this.state.currentYear}/>
-                <CreateMonth currentMonth={this.state.currentMonth}/>
+                <CreateMonth
+                   currentMonth={this.state.currentMonth}
+                   nextMonth={this.prevMonth}
+                   prevMonth={this.nextMonth}
+                   inItYearAndMoth={this.initYearAndMonth}
+                />
+                {this.weekDays()}
+                {this.state.dayOfWeek}
                 <CreateDays
-                    selectedDay={this.state.selectedDay}
-                    currentYear={this.state.currentYear}
-                    currentMonth={this.state.currentMonth}
+                   theSelectedDay={this.state.selectedDay}
+                   theCurrentYear={this.state.currentYear}
+                   theCurrentMonth={this.state.currentMonth}
                 />
             </div>
         );
     }
 }
-console.log("yay");
+console.log("yajhhhy");
 export default App;
