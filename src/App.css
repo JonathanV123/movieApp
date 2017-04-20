@@ -1,10 +1,29 @@
 .App {
     text-align: center;
-    height:100px;
-    width:152px;
+    height:100vh;
+    width:100%;
+    display:flex;
+    align-items:center;
+    flex-direction:column;
 }
 
 #testing {
-    background-color: red;
     width:100%;
+}
+.day{
+    width:5%;
+    height:5%;
+    border:1px solid mediumblue;
+    display:flex;
+    justify-content:space-between;
+    margin:2%;
+}
+.monthContainer{
+    width:100%;
+}
+.dayContainer{
+    width:100%;
+    display:flex;
+    justify-content:space-around;
+    flex-wrap:wrap;
 }
