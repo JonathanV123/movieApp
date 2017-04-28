@@ -7,10 +7,19 @@ export default class CreateDays extends React.Component {
         this.renderDaysInMonth = this.renderDaysInMonth.bind(this);
         this.state = {
             dayData: [],
-            dayRender:[]
+            dayRender:[],
+            dayToDayNumber:{
+                monday:[],
+                tuesday:[],
+                wed:[],
+                thursday:[],
+                friday:[],
+                saturday:[],
+                sunday:[],
+            }
+
         }
     }
-
     daysInMonth(month,year) {
         this.state.dayData.push(new Date(year, month, 0).getDate());
     }
