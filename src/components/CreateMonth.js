@@ -15,7 +15,7 @@ export default class CreateMonth extends React.Component {
                 <button onClick={() => {this.props.prevMonth(); this.props.displayMonth();}}>
                     Previous Month
                 </button>
-                {this.props.displayMonth}
+                {this.props.month}
                 <button onClick={() => {this.props.nextMonth(); this.props.displayMonth();}}>
                     Next Month
                 </button>

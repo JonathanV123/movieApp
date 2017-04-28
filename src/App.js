@@ -11,10 +11,11 @@ class App extends React.Component {
         this.prevMonth = this.prevMonth.bind(this);
         this.nextMonth = this.nextMonth.bind(this);
         this.displayMonth = this.displayMonth.bind(this);
-        this.determineCurrentYear = this.determineCurrentYear.bind(this);
+        this.getDay = this.getDay.bind(this);
         this.state = {
             year: new Date().getFullYear(),
-            month: new Date().getMonth(),
+            monthName: new Date().getMonth(),
+            monthNumber: new Date().getMonth(),
             countIs:0,
             counter:{
                 0:"Jan",
@@ -36,64 +37,71 @@ class App extends React.Component {
     }
     componentWillMount(){
         let counterMonth = this.state.counter;
-        let currentMonth = this.state.month;
+        let currentMonth = this.state.monthName;
         this.setState({
-            month:counterMonth[currentMonth],
+            monthName:counterMonth[currentMonth],
             countIs:currentMonth
         })
     }
     prevMonth(){
         let theCount = this.state.countIs;
-        let monthCounter = this.state.counter;
+        let monthNameCounter = this.state.counter;
         let newCount = theCount + 1;
+        let monthNumber = this.state.monthNumber;
+        let newMonthNumber = monthNumber + 1;
         if(newCount === 12){
             newCount = 0;
-        }
-        this.setState({
-            countIs: newCount,
-            month: monthCounter[theCount]
-        })
-    }
-    nextMonth() {
-        let theCount = this.state.countIs;
-        let monthCounter = this.state.counter;
-        let newCount = theCount - 1;
-        if(newCount === -1){
-            newCount = 11;
-        }
-        this.setState({
-            countIs: newCount,
-            month:monthCounter[theCount]
-    })
-    }
-    displayMonth(){
-        const counter = this.state.countIs;
-        const monthName = this.state.counter;
-        console.log(monthName);
-        let monthIsNow = monthName[counter];
-        console.log(monthIsNow);
-            this.setState({
-                month: monthIsNow,
-            });
-        return({
-            monthIsNow
-        })
-
-    }
-    determineCurrentYear(){
-        console.log("determining current year");
-        if(this.state.countIs > 12){
             let nextYearIs = new Date().getFullYear() + 1;
             this.setState({
                 year: nextYearIs,
             })
         }
-        if(this.state.countIs < 1){
-            let prevYear = new Date().getFullYear() - 1;
+        this.setState({
+            countIs: newCount,
+            monthName: monthNameCounter[theCount],
+            monthNumber: newMonthNumber
+        });
+        this.getDay();
+    }
+    nextMonth() {
+        let theCount = this.state.countIs;
+        let monthNameCounter = this.state.counter;
+        let newCount = theCount - 1;
+        let monthNumber = this.state.monthNumber;
+        let newMonthNumber = monthNumber - 1;
+        if(newCount === -1){
+            newCount = 11;
+            let nextYearIs = new Date().getFullYear() - 1;
             this.setState({
-                year: prevYear,
+                year: nextYearIs,
             })
         }
+        this.setState({
+            countIs: newCount,
+            monthName:monthNameCounter[theCount],
+            monthNumber: newMonthNumber
+        });
+        this.getDay();
+    }
+    displayMonth(){
+        const counter = this.state.countIs;
+        const monthNameName = this.state.counter;
+        console.log(monthNameName);
+        let monthNameIsNow = monthNameName[counter];
+        console.log(monthNameIsNow);
+            this.setState({
+                monthName: monthNameIsNow,
+            });
+    }
+    getDay(){
+        console.log("Get dat init");
+        let year = this.state.year;
+        console.log(year);
+        let month = this.state.monthNumber;
+        console.log(month);
+        let day =  new Date(year + "-" + month).getDay();
+        day = (day===0) ? 7 : day;
+        console.log("today is " + day);
     }
     // calculateDayOfWeek(firstDay){
     //     // const daysOfWeesdvsdvsdvsdvk = ["Sun","Mon","Tues","Wed","Thurs","Fri","Sat"]
@@ -104,22 +112,19 @@ class App extends React.Component {
                 <Header/>
                 <CreateYear year={this.state.year}/>
                 <CreateMonth
-                   month={this.state.month}
+                   monthName={this.state.monthName}
                    countIs={this.state.count}
                    counterMonth={this.state.counter}
                    nextMonth={this.prevMonth}
                    prevMonth={this.nextMonth}
-                   inItYearAndMoth={this.initYearAndMonth}
                    displayMonth={this.displayMonth}
                 />
                 <CreateDays
-                   theSelectedDay={this.state.selectedDay}
                    theCurrentYear={this.state.year}
-                   theCurrentMonth={this.state.month}
+                   theCurrentMonth={this.state.monthName}
                 />
             </div>
         );
     }
 }
-console.log("fixabfdsfsdsdasfcedd");
 export default App;

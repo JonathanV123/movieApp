@@ -24,7 +24,7 @@ export default class CreateDays extends React.Component {
         this.state.dayData.push(new Date(year, month, 0).getDate());
     }
     renderDaysInMonth(amt){
-        for(var i = 1; i < amt; i++){
+        for(let i = 1; i < amt; i++){
             this.state.dayRender.push(<div className='day' key={[i]}>{[i]}</div>);
         }
     }
@@ -38,11 +38,5 @@ export default class CreateDays extends React.Component {
         )
     }
 }
-//
-// dayToDayNumber = {
-//     monday: [1, 8, 15]
-// }
-//
-//     for day in Day
 
 
