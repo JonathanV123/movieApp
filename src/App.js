@@ -16,7 +16,6 @@ class App extends React.Component {
             year: new Date().getFullYear(),
             monthName: new Date().getMonth(),
             monthNumber: new Date().getMonth(),
-            countIs:0,
             counter:{
                 0:"Jan",
                 1:"Feb",
@@ -40,51 +39,45 @@ class App extends React.Component {
         let currentMonth = this.state.monthName;
         this.setState({
             monthName:counterMonth[currentMonth],
-            countIs:currentMonth
+            monthNumber:currentMonth
         })
     }
     prevMonth(){
-        let theCount = this.state.countIs;
         let monthNameCounter = this.state.counter;
-        let newCount = theCount + 1;
         let monthNumber = this.state.monthNumber;
         let newMonthNumber = monthNumber + 1;
-        if(newCount === 12){
-            newCount = 0;
-            let nextYearIs = new Date().getFullYear() + 1;
+        if(newMonthNumber === 12){
+            newMonthNumber = 0;
+            let nextYearIs = this.state.year + 1;
             this.setState({
                 year: nextYearIs,
             })
         }
         this.setState({
-            countIs: newCount,
-            monthName: monthNameCounter[theCount],
+            monthName: monthNameCounter[newMonthNumber],
             monthNumber: newMonthNumber
         });
         this.getDay();
     }
     nextMonth() {
-        let theCount = this.state.countIs;
         let monthNameCounter = this.state.counter;
-        let newCount = theCount - 1;
         let monthNumber = this.state.monthNumber;
         let newMonthNumber = monthNumber - 1;
-        if(newCount === -1){
-            newCount = 11;
-            let nextYearIs = new Date().getFullYear() - 1;
+        if(newMonthNumber === -1){
+            newMonthNumber = 11;
+            let nextYearIs = this.state.year - 1;
             this.setState({
                 year: nextYearIs,
             })
         }
         this.setState({
-            countIs: newCount,
-            monthName:monthNameCounter[theCount],
+            monthName:monthNameCounter[newMonthNumber],
             monthNumber: newMonthNumber
         });
         this.getDay();
     }
     displayMonth(){
-        const counter = this.state.countIs;
+        const counter = this.state.monthNumber;
         const monthNameName = this.state.counter;
         console.log(monthNameName);
         let monthNameIsNow = monthNameName[counter];
@@ -113,7 +106,7 @@ class App extends React.Component {
                 <CreateYear year={this.state.year}/>
                 <CreateMonth
                    monthName={this.state.monthName}
-                   countIs={this.state.count}
+                   monthNumber={this.state.count}
                    counterMonth={this.state.counter}
                    nextMonth={this.prevMonth}
                    prevMonth={this.nextMonth}
@@ -127,4 +120,5 @@ class App extends React.Component {
         );
     }
 }
+console.log("App");
 export default App;
