@@ -3,40 +3,37 @@ import React from 'react';
 export default class CreateDays extends React.Component {
     constructor() {
         super();
-        this.daysInMonth = this.daysInMonth.bind(this);
-        this.renderDaysInMonth = this.renderDaysInMonth.bind(this);
+        this.calendarGrid = this.calendarGrid.bind(this);
         this.state = {
-            dayData: [],
             dayRender:[],
-            dayToDayNumber:{
-                monday:[],
-                tuesday:[],
-                wed:[],
-                thursday:[],
-                friday:[],
-                saturday:[],
-                sunday:[],
-            }
-
+            daysOfWeek:["Sun","Mon","Tues","Wed","Thurs","Fri","Sat"],
+            row:[]
         }
     }
-    daysInMonth(month,year) {
-        this.state.dayData.push(new Date(year, month, 0).getDate());
+    calendarGrid(){
+        console.log("Calendar Grid Active");
+        for(let i = 0; i<= 6; i++){
+            console.log(this.state.daysOfWeek[i]);
+            this.state.row.push(<div className="row" key={this.state.daysOfWeek[i]}>{this.state.daysOfWeek[i]}</div>)
+        }
     }
-    renderDaysInMonth(amt){
-        for(let i = 1; i < amt; i++){
+    componentWillMount(){
+        for(let i = 1; i < this.props.numberOfDaysInMonth + 1; i++){
             this.state.dayRender.push(<div className='day' key={[i]}>{[i]}</div>);
         }
+        this.calendarGrid();
     }
     render() {
         return (
             <div className="dayContainer">
-                {this.daysInMonth(this.props.theCurrentMonth,this.props.theCurrentYear)}
-                {this.renderDaysInMonth(this.state.dayData)}
-                {this.state.dayRender}
+                <div className="rowOfWeekNames">
+                    {this.state.row}
+                    <div className="daysOfWeek"></div>
+                    {this.state.dayRender}
+                </div>
             </div>
         )
     }
 }
-
+console.log("ok");
 

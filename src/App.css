@@ -27,3 +27,15 @@
     justify-content:space-around;
     flex-wrap:wrap;
 }
+.rowOfWeekNames{
+    width:100%;
+    display:flex;
+    justify-content:space-around;
+    flex-wrap:wrap;
+}
+.daysOfWeek{
+    width:100%;
+    display:flex;
+    justify-content:space-around;
+    flex-wrap:wrap;
+}

@@ -17,7 +17,7 @@ class App extends React.Component {
             monthName: new Date().getMonth(),
             monthNumber: new Date().getMonth(),
             currentDay: null,
-            firstDayOfMonth: null,
+            numberOfDaysInMonth: null,
             counter:{
                 0:"Jan",
                 1:"Feb",
@@ -32,8 +32,8 @@ class App extends React.Component {
                 10:"Nov",
                 11:"Dec"
             },
-            firstDay: 1,
-            lastDay:12,
+            firstDay: null,
+            lastDay: null,
         };
     }
     componentWillMount(){
@@ -74,7 +74,7 @@ class App extends React.Component {
             })
         }
         this.setState({
-            monthName:monthNameCounter[newMonthNumber],
+            monthName: monthNameCounter[newMonthNumber],
             monthNumber: newMonthNumber
         });
         this.getDay();
@@ -100,15 +100,14 @@ class App extends React.Component {
         //Get first and last day of month
         let firstDay = new Date(year, month, 1);
         let lastDay = new Date(year, month + 1, 0);
+        let initNumOfDaysInMonth = new Date(year, month +1,0).getDate();
         this.setState({
             currentDay: day,
             firstDay: firstDay,
-            lastDay: lastDay
+            lastDay: lastDay,
+            numberOfDaysInMonth: initNumOfDaysInMonth
         })
     }
-    // calculateDayOfWeek(firstDay){
-    //     // const daysOfWeesdvsdvsdvsdvk = ["Sun","Mon","Tues","Wed","Thurs","Fri","Sat"]
-    // }
     render() {
         return (
             <div className="App">
@@ -124,11 +123,16 @@ class App extends React.Component {
                 />
                 <CreateDays
                    theCurrentYear={this.state.year}
-                   theCurrentMonth={this.state.monthName}
+                   theCurrentMonth={this.state.monthNumber}
+                   firstDay={this.state.firstDay}
+                   lastDay={this.state.lastDay}
+                   currentDay={this.state.currentDay}
+                   numberOfDaysInMonth={this.state.numberOfDaysInMonth}
                 />
             </div>
         );
     }
 }
-console.log("Applicationaaaaa");
 export default App;
+console.log("adasdaa");
+
