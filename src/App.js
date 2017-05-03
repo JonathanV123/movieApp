@@ -16,6 +16,8 @@ class App extends React.Component {
             year: new Date().getFullYear(),
             monthName: new Date().getMonth(),
             monthNumber: new Date().getMonth(),
+            currentDay: null,
+            firstDayOfMonth: null,
             counter:{
                 0:"Jan",
                 1:"Feb",
@@ -30,8 +32,8 @@ class App extends React.Component {
                 10:"Nov",
                 11:"Dec"
             },
-            firstMonth: 1,
-            lastMonth:12,
+            firstDay: 1,
+            lastDay:12,
         };
     }
     componentWillMount(){
@@ -40,7 +42,8 @@ class App extends React.Component {
         this.setState({
             monthName:counterMonth[currentMonth],
             monthNumber:currentMonth
-        })
+        });
+        this.getDay();
     }
     prevMonth(){
         let monthNameCounter = this.state.counter;
@@ -92,9 +95,16 @@ class App extends React.Component {
         console.log(year);
         let month = this.state.monthNumber;
         console.log(month);
-        let day =  new Date(year + "-" + month).getDay();
-        day = (day===0) ? 7 : day;
+        let day =  new Date().getDay();
         console.log("today is " + day);
+        //Get first and last day of month
+        let firstDay = new Date(year, month, 1);
+        let lastDay = new Date(year, month + 1, 0);
+        this.setState({
+            currentDay: day,
+            firstDay: firstDay,
+            lastDay: lastDay
+        })
     }
     // calculateDayOfWeek(firstDay){
     //     // const daysOfWeesdvsdvsdvsdvk = ["Sun","Mon","Tues","Wed","Thurs","Fri","Sat"]
@@ -120,5 +130,5 @@ class App extends React.Component {
         );
     }
 }
-console.log("App");
+console.log("Applicationaaaaa");
 export default App;
