@@ -5,6 +5,16 @@ import CreateMonth from './components/CreateMonth.js';
 import CreateDays from './components/CreateDays.js';
 import './App.css';
 
+// const DAYS_OF_WEEK = ["Sun","Mon","Tues","Wed","Thurs","Fri","Sat"];
+// dayNameDays = {};
+// DAYS_OF_WEEK.forEach(function(dayOfWeek) { dayNameDays[dayOfWeek] = [] })
+// dayNameDays {
+//  'Sun': [],
+//  'Mon': [],
+// }
+// for each date  in a month
+//  dayNameDays[DAYS_OF_WEEK[date.getDay()]].push(date)
+//
 class App extends React.Component {
     constructor() {
         super();
