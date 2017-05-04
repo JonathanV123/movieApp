@@ -22,6 +22,7 @@ class App extends React.Component {
         this.nextMonth = this.nextMonth.bind(this);
         this.displayMonth = this.displayMonth.bind(this);
         this.getDay = this.getDay.bind(this);
+        this.getDaysOfMonth = this.getDaysOfMonth.bind(this);
         this.state = {
             year: new Date().getFullYear(),
             monthName: new Date().getMonth(),
@@ -54,6 +55,41 @@ class App extends React.Component {
             monthNumber:currentMonth
         });
         this.getDay();
+        this.getDaysOfMonth();
+    }
+
+    getDaysOfMonth() {
+        const dates =[];  //Dates accessible from here
+        const dayNameDays = {};
+        for (let i = 0; i <= 6; i++) {
+            console.log(i);
+            let year = this.state.year;
+            let month = this.state.monthNumber;
+            let theDayOfTheWeek = i;
+            // --month;                                    // correct JS date functions
+            let d = new Date(year, month, 1);           // first of the month
+            let firstDayOfWeek = d.getDay();                 // find out what Day of week that was
+            let date = (7 + theDayOfTheWeek - firstDayOfWeek) % 7 + 1;   // and the first day matching dow
+            d.setDate(date);
+            do {
+                dates.push(new Date(d));      // store a copy of that date
+                date += 7;                    // go forward a week
+                d.setDate(date);
+            } while (d.getMonth() === month); // until the end of the month
+            console.log(dates);
+        }
+        // console.log(dates) why isn't dates accessible from here?
+
+
+
+
+
+
+        // let a = dates.reduce(function(all, item, index){
+        //     all[item.index.includes("Sun")].push(item);
+        //     return all;
+        // },{Sun:[],Mon:[],Tues:[],Wed:[],Thurs:[],Fri:[],Sat:[]});
+        // console.log(a);
     }
     prevMonth(){
         let monthNameCounter = this.state.counter;
@@ -100,13 +136,9 @@ class App extends React.Component {
             });
     }
     getDay(){
-        console.log("Get dat init");
         let year = this.state.year;
-        console.log(year);
         let month = this.state.monthNumber;
-        console.log(month);
         let day =  new Date().getDay();
-        console.log("today is " + day);
         //Get first and last day of month
         let firstDay = new Date(year, month, 1);
         let lastDay = new Date(year, month + 1, 0);
@@ -144,5 +176,5 @@ class App extends React.Component {
     }
 }
 export default App;
-console.log("adasdaa");
+console.log('sdasdsadhasdsasdddadsasdsasdsasdsaaaasdddddddddddddddddddddddddddddddddddddds');
 

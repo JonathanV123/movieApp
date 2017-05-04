@@ -13,7 +13,7 @@ export default class CreateDays extends React.Component {
     calendarGrid(){
         console.log("Calendar Grid Active");
         for(let i = 0; i<= 6; i++){
-            console.log(this.state.daysOfWeek[i]);
+            // console.log(this.state.daysOfWeek[i]);
             this.state.row.push(<div className="row" key={this.state.daysOfWeek[i]}>{this.state.daysOfWeek[i]}</div>)
         }
     }
