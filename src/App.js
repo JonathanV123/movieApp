@@ -69,7 +69,7 @@ class App extends React.Component {
             // --month;                                    // correct JS date functions
             let d = new Date(year, month, 1);           // first of the month
             let firstDayOfWeek = d.getDay();                 // find out what Day of week that was
-            let date = (7 + theDayOfTheWeek - firstDayOfWeek) % 7 + 1;   // and the first day matching dow
+            let date = (7 + theDayOfTheWeek - firstDayOfWeek) % 7 + 1;   // and the first day matching the day of the week
             d.setDate(date);
             do {
                 dates.push(new Date(d));      // store a copy of that date
@@ -80,16 +80,15 @@ class App extends React.Component {
         }
         // console.log(dates) why isn't dates accessible from here?
 
-
-
-
-
-
-        // let a = dates.reduce(function(all, item, index){
-        //     all[item.index.includes("Sun")].push(item);
-        //     return all;
-        // },{Sun:[],Mon:[],Tues:[],Wed:[],Thurs:[],Fri:[],Sat:[]});
-        // console.log(a);
+        let a = dates.reduce(function(all, item, index){
+            if(typeof item === "string"){
+                console.log("is string");
+            }else{
+                console.log("not string");
+            }
+            return all;
+        },{Sun:[],Mon:[],Tues:[],Wed:[],Thurs:[],Fri:[],Sat:[]});
+        console.log(a);
     }
     prevMonth(){
         let monthNameCounter = this.state.counter;
@@ -176,5 +175,5 @@ class App extends React.Component {
     }
 }
 export default App;
-console.log('sdasdsadhasdsasdddadsasdsasdsasdsaaaasdddddddddddddddddddddddddddddddddddddds');
+console.log('abcdedfdfhdfjdjrddrsssfg');
 
