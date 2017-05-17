@@ -29,40 +29,47 @@ class App extends React.Component {
             monthNumber: new Date().getMonth(),
             currentDay: null,
             numberOfDaysInMonth: null,
-            counter:{
-                0:"Jan",
-                1:"Feb",
-                2:"Mar",
-                3:"Apr",
-                4:"May",
-                5:"June",
-                6:"Jul",
-                7:"Aug",
-                8:"Sept",
-                9:"Oct",
-                10:"Nov",
-                11:"Dec"
+            counter: {
+                0: "Jan",
+                1: "Feb",
+                2: "Mar",
+                3: "Apr",
+                4: "May",
+                5: "June",
+                6: "Jul",
+                7: "Aug",
+                8: "Sept",
+                9: "Oct",
+                10: "Nov",
+                11: "Dec"
             },
             firstDay: null,
             lastDay: null,
+            Sun: [],
+            Mon: [],
+            Tues: [],
+            Wed: [],
+            Thurs: [],
+            Fri: [],
+            Sat: []
         };
     }
-    componentWillMount(){
+
+    componentWillMount() {
         let counterMonth = this.state.counter;
         let currentMonth = this.state.monthName;
         this.setState({
-            monthName:counterMonth[currentMonth],
-            monthNumber:currentMonth
+            monthName: counterMonth[currentMonth],
+            monthNumber: currentMonth
         });
         this.getDay();
         this.getDaysOfMonth();
     }
 
     getDaysOfMonth() {
-        const dates =[];  //Dates accessible from here
-        const dayNameDays = {};
+        const dates = [];  //Dates accessible from here
+        // const dayNameDays = {};
         for (let i = 0; i <= 6; i++) {
-            console.log(i);
             let year = this.state.year;
             let month = this.state.monthNumber;
             let theDayOfTheWeek = i;
@@ -71,30 +78,76 @@ class App extends React.Component {
             let firstDayOfWeek = d.getDay();                 // find out what Day of week that was
             let date = (7 + theDayOfTheWeek - firstDayOfWeek) % 7 + 1;   // and the first day matching the day of the week
             d.setDate(date);
-            do {
-                dates.push(new Date(d));      // store a copy of that date
-                date += 7;                    // go forward a week
-                d.setDate(date);
-            } while (d.getMonth() === month); // until the end of the month
-            console.log(dates);
+            if (theDayOfTheWeek === 0) {
+                do {
+                    this.state.Sun.push(new Date(d));      // store a copy of that date
+                    date += 7;                    // go forward a week
+                    d.setDate(date);
+                } while (d.getMonth() === month); // until the end of the month
+            }
+            if (theDayOfTheWeek === 1) {
+                do {
+                    this.state.Mon.push(new Date(d));      // store a copy of that date
+                    date += 7;                    // go forward a week
+                    d.setDate(date);
+                    console.log(d.setDate(date));
+                } while (d.getMonth() === month); // until the end of the month
+            }
+            if (theDayOfTheWeek === 2) {
+                do {
+                    this.state.Tues.push(new Date(d));      // store a copy of that date
+                    date += 7;                    // go forward a week
+                    d.setDate(date);
+                } while (d.getMonth() === month); // until the end of the month
+            }
+            if (theDayOfTheWeek === 3) {
+                do {
+                    this.state.Wed.push(new Date(d));      // store a copy of that date
+                    date += 7;                    // go forward a week
+                    d.setDate(date);
+                } while (d.getMonth() === month); // until the end of the month
+            }
+            if (theDayOfTheWeek === 4) {
+                do {
+                    this.state.Thurs.push(new Date(d));      // store a copy of that date
+                    date += 7;                    // go forward a week
+                    d.setDate(date);
+                } while (d.getMonth() === month); // until the end of the month
+            }
+            if (theDayOfTheWeek === 5) {
+                do {
+                    this.state.Fri.push(new Date(d));      // store a copy of that date
+                    date += 7;                    // go forward a week
+                    d.setDate(date);
+                } while (d.getMonth() === month); // until the end of the month
+            }
+            if (theDayOfTheWeek === 6) {
+                do {
+                    this.state.Sat.push(new Date(d));      // store a copy of that date
+                    date += 7;                    // go forward a week
+                    d.setDate(date);
+                } while (d.getMonth() === month); // until the end of the month
+            }
+            console.log(this.state.Sat)
         }
         // console.log(dates) why isn't dates accessible from here?
 
-        let a = dates.reduce(function(all, item, index){
-            if(typeof item === "string"){
-                console.log("is string");
-            }else{
-                console.log("not string");
-            }
-            return all;
-        },{Sun:[],Mon:[],Tues:[],Wed:[],Thurs:[],Fri:[],Sat:[]});
-        console.log(a);
+        // let a = dates.reduce(function(all, item, index){
+        //     if(typeof item === "string"){
+        //         console.log("is string");
+        //     }else{
+        //         console.log("not string");
+        //     }
+        //     return all;
+        // },{Sun:[],Mon:[],Tues:[],Wed:[],Thurs:[],Fri:[],Sat:[]});
+        // console.log(a);
     }
-    prevMonth(){
+
+    prevMonth() {
         let monthNameCounter = this.state.counter;
         let monthNumber = this.state.monthNumber;
         let newMonthNumber = monthNumber + 1;
-        if(newMonthNumber === 12){
+        if (newMonthNumber === 12) {
             newMonthNumber = 0;
             let nextYearIs = this.state.year + 1;
             this.setState({
@@ -107,11 +160,12 @@ class App extends React.Component {
         });
         this.getDay();
     }
+
     nextMonth() {
         let monthNameCounter = this.state.counter;
         let monthNumber = this.state.monthNumber;
         let newMonthNumber = monthNumber - 1;
-        if(newMonthNumber === -1){
+        if (newMonthNumber === -1) {
             newMonthNumber = 11;
             let nextYearIs = this.state.year - 1;
             this.setState({
@@ -124,24 +178,26 @@ class App extends React.Component {
         });
         this.getDay();
     }
-    displayMonth(){
+
+    displayMonth() {
         const counter = this.state.monthNumber;
         const monthNameName = this.state.counter;
         console.log(monthNameName);
         let monthNameIsNow = monthNameName[counter];
         console.log(monthNameIsNow);
-            this.setState({
-                monthName: monthNameIsNow,
-            });
+        this.setState({
+            monthName: monthNameIsNow,
+        });
     }
-    getDay(){
+
+    getDay() {
         let year = this.state.year;
         let month = this.state.monthNumber;
-        let day =  new Date().getDay();
+        let day = new Date().getDay();
         //Get first and last day of month
         let firstDay = new Date(year, month, 1);
         let lastDay = new Date(year, month + 1, 0);
-        let initNumOfDaysInMonth = new Date(year, month +1,0).getDate();
+        let initNumOfDaysInMonth = new Date(year, month + 1, 0).getDate();
         this.setState({
             currentDay: day,
             firstDay: firstDay,
@@ -149,26 +205,27 @@ class App extends React.Component {
             numberOfDaysInMonth: initNumOfDaysInMonth
         })
     }
+
     render() {
         return (
             <div className="App">
                 <Header/>
                 <CreateYear year={this.state.year}/>
                 <CreateMonth
-                   monthName={this.state.monthName}
-                   monthNumber={this.state.count}
-                   counterMonth={this.state.counter}
-                   nextMonth={this.prevMonth}
-                   prevMonth={this.nextMonth}
-                   displayMonth={this.displayMonth}
+                    monthName={this.state.monthName}
+                    monthNumber={this.state.count}
+                    counterMonth={this.state.counter}
+                    nextMonth={this.prevMonth}
+                    prevMonth={this.nextMonth}
+                    displayMonth={this.displayMonth}
                 />
                 <CreateDays
-                   theCurrentYear={this.state.year}
-                   theCurrentMonth={this.state.monthNumber}
-                   firstDay={this.state.firstDay}
-                   lastDay={this.state.lastDay}
-                   currentDay={this.state.currentDay}
-                   numberOfDaysInMonth={this.state.numberOfDaysInMonth}
+                    theCurrentYear={this.state.year}
+                    theCurrentMonth={this.state.monthNumber}
+                    firstDay={this.state.firstDay}
+                    lastDay={this.state.lastDay}
+                    currentDay={this.state.currentDay}
+                    numberOfDaysInMonth={this.state.numberOfDaysInMonth}
                 />
             </div>
         );
