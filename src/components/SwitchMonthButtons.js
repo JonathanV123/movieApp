@@ -1,8 +1,7 @@
 
 import React from 'react';
-// import CreateDays from './CreateDays.js';
 
-export default class CreateMonth extends React.Component {
+export default class SwitchMonthButtons extends React.Component {
     constructor() {
         super();
         this.monthsIndex = this.monthsIndex.bind(this);

@@ -1,8 +1,8 @@
 import React from 'react';
-import Header from './components/Header.js';
-import CreateYear from './components/CreateYear.js';
-import CreateMonth from './components/CreateMonth.js';
-import CreateDays from './components/CreateDays.js';
+import SwitchMonthButtons from './components/SwitchMonthButtons.js';
+import RenderDaysInMonth from './components/RenderDaysInMonth.js';
+import RenderIndividualDay from './components/RenderIndividualDay.js';
+
 import './App.css';
 
 // const DAYS_OF_WEEK = ["Sun","Mon","Tues","Wed","Thurs","Fri","Sat"];
@@ -90,7 +90,6 @@ class App extends React.Component {
                     this.state.Mon.push(new Date(d));      // store a copy of that date
                     date += 7;                    // go forward a week
                     d.setDate(date);
-                    console.log(d.setDate(date));
                 } while (d.getMonth() === month); // until the end of the month
             }
             if (theDayOfTheWeek === 2) {
@@ -128,10 +127,7 @@ class App extends React.Component {
                     d.setDate(date);
                 } while (d.getMonth() === month); // until the end of the month
             }
-            console.log(this.state.Sat)
         }
-        // console.log(dates) why isn't dates accessible from here?
-
         // let a = dates.reduce(function(all, item, index){
         //     if(typeof item === "string"){
         //         console.log("is string");
@@ -209,9 +205,7 @@ class App extends React.Component {
     render() {
         return (
             <div className="App">
-                <Header/>
-                <CreateYear year={this.state.year}/>
-                <CreateMonth
+                <SwitchMonthButtons
                     monthName={this.state.monthName}
                     monthNumber={this.state.count}
                     counterMonth={this.state.counter}
@@ -219,18 +213,24 @@ class App extends React.Component {
                     prevMonth={this.nextMonth}
                     displayMonth={this.displayMonth}
                 />
-                <CreateDays
+                <RenderDaysInMonth
                     theCurrentYear={this.state.year}
                     theCurrentMonth={this.state.monthNumber}
                     firstDay={this.state.firstDay}
                     lastDay={this.state.lastDay}
                     currentDay={this.state.currentDay}
                     numberOfDaysInMonth={this.state.numberOfDaysInMonth}
+                    Sun={this.state.Sun}
+                    Mon={this.state.Mon}
+                    Tues={this.state.Tues}
+                    Wed={this.state.Wed}
+                    Thurs={this.state.Thurs}
+                    Fri={this.state.Fri}
+                    Sat={this.state.Sat}
                 />
             </div>
         );
     }
 }
 export default App;
-console.log('abcdedfdfhdfjdjrddrsssfg');
 

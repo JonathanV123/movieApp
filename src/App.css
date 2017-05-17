@@ -10,13 +10,15 @@
 #testing {
     width:100%;
 }
-.day{
-    width:5%;
-    height:5%;
-    border:1px solid mediumblue;
-    display:flex;
-    justify-content:space-between;
-    margin:2%;
+.dayOfWeek{
+    width:8%;
+    height:8%;
+    border:2px solid mediumblue;
+}
+.dayOfWeekName{
+    width:100vh;
+    height:100vh;
+    border: 2px solid pink;
 }
 .monthContainer{
     width:90%;
