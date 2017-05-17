@@ -12,9 +12,10 @@ import './App.css';
 //  'Sun': [],
 //  'Mon': [],
 // }
-// for each date  in a month
-//  dayNameDays[DAYS_OF_WEEK[date.getDay()]].push(date)
+// for each date  in a monthe)
+//  dayNameDays[DAYS_OF_WEEK[date.getDay()]].push(dat
 //
+const DAYS_OF_WEEK = ["Sun","Mon","Tues","Wed","Thurs","Fri","Sat"];
 class App extends React.Component {
     constructor() {
         super();
@@ -23,6 +24,12 @@ class App extends React.Component {
         this.displayMonth = this.displayMonth.bind(this);
         this.getDay = this.getDay.bind(this);
         this.getDaysOfMonth = this.getDaysOfMonth.bind(this);
+        this.fixed = this.fixed.bind(this);
+        this.generateDayNameDays = this.generateDayNameDays.bind(this);
+        this.getDayName = this.getDayName.bind(this);
+        this.getDaysOfMonthV2 = this.getDaysOfMonthV2.bind(this);
+
+
         this.state = {
             year: new Date().getFullYear(),
             monthName: new Date().getMonth(),
@@ -45,13 +52,7 @@ class App extends React.Component {
             },
             firstDay: null,
             lastDay: null,
-            Sun: [],
-            Mon: [],
-            Tues: [],
-            Wed: [],
-            Thurs: [],
-            Fri: [],
-            Sat: []
+            dayNameDays: this.generateDayNameDays(),
         };
     }
 
@@ -63,71 +64,102 @@ class App extends React.Component {
             monthNumber: currentMonth
         });
         this.getDay();
-        this.getDaysOfMonth();
+        this.fixed();
+    }
+
+    fixed() {
+        var dayNameDays = this.generateDayNameDays();
+        this.getDaysOfMonthV2().forEach((dateInMonth) => {
+            dayNameDays[this.getDayName(dateInMonth)].push(dateInMonth)
+        });
+        this.setState({dayNameDays: dayNameDays});
+    }
+
+    generateDayNameDays() {
+        var dayNameDays = {};
+        DAYS_OF_WEEK.forEach((dayName) => {
+            dayNameDays[dayName] = [];
+        });
+        return dayNameDays;
+    }
+
+    getDayName(date) {
+        return DAYS_OF_WEEK[date.getDay()];
+    }
+
+    getDaysOfMonthV2() {
+        var daysInMonth = [];
+        //first day of this.state.monthNumber
+        var date = new Date(this.state.year, this.state.monthNumber);
+        while(date.getMonth() === this.state.monthNumber) {
+            daysInMonth.push(new Date(date));
+            date.setDate(date.getDate() + 1)
+        }
+        return daysInMonth
     }
 
     getDaysOfMonth() {
-        const dates = [];  //Dates accessible from here
-        // const dayNameDays = {};
-        for (let i = 0; i <= 6; i++) {
-            let year = this.state.year;
-            let month = this.state.monthNumber;
-            let theDayOfTheWeek = i;
-            // --month;                                    // correct JS date functions
-            let d = new Date(year, month, 1);           // first of the month
-            let firstDayOfWeek = d.getDay();                 // find out what Day of week that was
-            let date = (7 + theDayOfTheWeek - firstDayOfWeek) % 7 + 1;   // and the first day matching the day of the week
-            d.setDate(date);
-            if (theDayOfTheWeek === 0) {
-                do {
-                    this.state.Sun.push(new Date(d));      // store a copy of that date
-                    date += 7;                    // go forward a week
-                    d.setDate(date);
-                } while (d.getMonth() === month); // until the end of the month
-            }
-            if (theDayOfTheWeek === 1) {
-                do {
-                    this.state.Mon.push(new Date(d));      // store a copy of that date
-                    date += 7;                    // go forward a week
-                    d.setDate(date);
-                } while (d.getMonth() === month); // until the end of the month
-            }
-            if (theDayOfTheWeek === 2) {
-                do {
-                    this.state.Tues.push(new Date(d));      // store a copy of that date
-                    date += 7;                    // go forward a week
-                    d.setDate(date);
-                } while (d.getMonth() === month); // until the end of the month
-            }
-            if (theDayOfTheWeek === 3) {
-                do {
-                    this.state.Wed.push(new Date(d));      // store a copy of that date
-                    date += 7;                    // go forward a week
-                    d.setDate(date);
-                } while (d.getMonth() === month); // until the end of the month
-            }
-            if (theDayOfTheWeek === 4) {
-                do {
-                    this.state.Thurs.push(new Date(d));      // store a copy of that date
-                    date += 7;                    // go forward a week
-                    d.setDate(date);
-                } while (d.getMonth() === month); // until the end of the month
-            }
-            if (theDayOfTheWeek === 5) {
-                do {
-                    this.state.Fri.push(new Date(d));      // store a copy of that date
-                    date += 7;                    // go forward a week
-                    d.setDate(date);
-                } while (d.getMonth() === month); // until the end of the month
-            }
-            if (theDayOfTheWeek === 6) {
-                do {
-                    this.state.Sat.push(new Date(d));      // store a copy of that date
-                    date += 7;                    // go forward a week
-                    d.setDate(date);
-                } while (d.getMonth() === month); // until the end of the month
-            }
-        }
+        // const dates = [];  //Dates accessible from here
+        // // const dayNameDays = {};
+        // for (let i = 0; i <= 6; i++) {
+        //     let year = this.state.year;
+        //     let month = this.state.monthNumber;
+        //     let theDayOfTheWeek = i;
+        //     // --month;                                    // correct JS date functions
+        //     let d = new Date(year, month, 1);           // first of the month
+        //     let firstDayOfWeek = d.getDay();                 // find out what Day of week that was
+        //     let date = (7 + theDayOfTheWeek - firstDayOfWeek) % 7 + 1;   // and the first day matching the day of the week
+        //     d.setDate(date);
+        //     if (theDayOfTheWeek === 0) {
+        //         do {
+        //             this.state.Sun.push(new Date(d));      // store a copy of that date
+        //             date += 7;                    // go forward a week
+        //             d.setDate(date);
+        //         } while (d.getMonth() === month); // until the end of the month
+        //     }
+        //     if (theDayOfTheWeek === 1) {
+        //         do {
+        //             this.state.Mon.push(new Date(d));      // store a copy of that date
+        //             date += 7;                    // go forward a week
+        //             d.setDate(date);
+        //         } while (d.getMonth() === month); // until the end of the month
+        //     }
+        //     if (theDayOfTheWeek === 2) {
+        //         do {
+        //             this.state.Tues.push(new Date(d));      // store a copy of that date
+        //             date += 7;                    // go forward a week
+        //             d.setDate(date);
+        //         } while (d.getMonth() === month); // until the end of the month
+        //     }
+        //     if (theDayOfTheWeek === 3) {
+        //         do {
+        //             this.state.Wed.push(new Date(d));      // store a copy of that date
+        //             date += 7;                    // go forward a week
+        //             d.setDate(date);
+        //         } while (d.getMonth() === month); // until the end of the month
+        //     }
+        //     if (theDayOfTheWeek === 4) {
+        //         do {
+        //             this.state.Thurs.push(new Date(d));      // store a copy of that date
+        //             date += 7;                    // go forward a week
+        //             d.setDate(date);
+        //         } while (d.getMonth() === month); // until the end of the month
+        //     }
+        //     if (theDayOfTheWeek === 5) {
+        //         do {
+        //             this.state.Fri.push(new Date(d));      // store a copy of that date
+        //             date += 7;                    // go forward a week
+        //             d.setDate(date);
+        //         } while (d.getMonth() === month); // until the end of the month
+        //     }
+        //     if (theDayOfTheWeek === 6) {
+        //         do {
+        //             this.state.Sat.push(new Date(d));      // store a copy of that date
+        //             date += 7;                    // go forward a week
+        //             d.setDate(date);
+        //         } while (d.getMonth() === month); // until the end of the month
+        //     }
+        // }
         // let a = dates.reduce(function(all, item, index){
         //     if(typeof item === "string"){
         //         console.log("is string");
@@ -220,13 +252,7 @@ class App extends React.Component {
                     lastDay={this.state.lastDay}
                     currentDay={this.state.currentDay}
                     numberOfDaysInMonth={this.state.numberOfDaysInMonth}
-                    Sun={this.state.Sun}
-                    Mon={this.state.Mon}
-                    Tues={this.state.Tues}
-                    Wed={this.state.Wed}
-                    Thurs={this.state.Thurs}
-                    Fri={this.state.Fri}
-                    Sat={this.state.Sat}
+                    dayNameDays={this.state.dayNameDays}
                 />
             </div>
         );

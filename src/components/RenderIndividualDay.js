@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class RenderDaysInMonth extends React.Component {
+export default class RenderIndividualDay extends React.Component {
     constructor() {
         super();
     }
