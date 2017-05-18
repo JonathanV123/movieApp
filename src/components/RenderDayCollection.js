@@ -11,7 +11,7 @@ export default class RenderDayCollection extends React.Component {
         let daysOfWeek = this.props.dates;
         console.log(daysOfWeek);
         for (let date in daysOfWeek) {
-            individualDayComponents.push(<RenderIndividualDay dates={daysOfWeek[date]} key={Date.now()}/>);
+            individualDayComponents.push(<RenderIndividualDay dates={daysOfWeek[date]} key={Math.random()}/>);
             console.log(daysOfWeek[date]);
         }
         return individualDayComponents;
