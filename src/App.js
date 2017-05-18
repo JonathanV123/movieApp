@@ -57,7 +57,16 @@ class App extends React.Component {
 
     fixed() {
         var dayNameDays = this.generateDayNameDays();
-        this.getDaysOfMonthV2().forEach((dateInMonth) => {
+        var daysOfMonth = this.getDaysOfMonthV2();
+        var firstDateInMonth = daysOfMonth[0];
+        var nullDate = { getDate: ()=>{} };
+
+        var i = 0;
+        while (i < firstDateInMonth.getDay()) {
+            dayNameDays[DAYS_OF_WEEK[i]].push(nullDate);
+            i++;
+        }
+        daysOfMonth.forEach((dateInMonth) => {
             dayNameDays[this.getDayName(dateInMonth)].push(dateInMonth)
         });
         this.setState({dayNameDays: dayNameDays});
