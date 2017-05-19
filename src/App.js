@@ -46,10 +46,10 @@ class App extends React.Component {
 
     componentWillMount() {
 // Performing a GET request
-        axios.get('https://api.github.com/users/' + 'JonathanV123')
+        axios.get('https://api.themoviedb.org/3/discover/movie?api_key=<<ENTER KEY HERE>>&language=en-US&region=US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&release_date.gte=2017-05-01&release_date.lte=2017-05-31')
             .then(function(response){
-                console.log(response.data); // ex.: { user: 'Your User'}
-                console.log(response.status); // ex.: 200
+                console.log(response.data);
+                console.log(response.status);
             });
 
         let counterMonth = this.state.counter;
