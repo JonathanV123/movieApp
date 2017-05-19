@@ -1,9 +1,9 @@
 import React from 'react';
 import SwitchMonthButtons from './components/SwitchMonthButtons.js';
 import RenderDaysInMonth from './components/RenderDaysInMonth.js';
+import axios from 'axios';
 
 import './App.css';
-
 const DAYS_OF_WEEK = ["Sun","Mon","Tues","Wed","Thurs","Fri","Sat"];
 class App extends React.Component {
     constructor() {
@@ -45,6 +45,13 @@ class App extends React.Component {
     }
 
     componentWillMount() {
+// Performing a GET request
+        axios.get('https://api.github.com/users/' + 'JonathanV123')
+            .then(function(response){
+                console.log(response.data); // ex.: { user: 'Your User'}
+                console.log(response.status); // ex.: 200
+            });
+
         let counterMonth = this.state.counter;
         let currentMonth = this.state.monthName;
         this.setState({
