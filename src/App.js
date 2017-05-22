@@ -47,20 +47,12 @@ class App extends React.Component {
 
     componentWillMount() {
 // Performing a GET request
-        const movieDataCopy = this.state.movieData;
         axios.get('https://api.themoviedb.org/3/discover/movie?api_key=a0bab1433b22d4b59bf466484c131da6&language=en-US&region=US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&release_date.gte=2017-05-01&release_date.lte=2017-05-31')
             .then(function (response) {
-                console.log(response.data);
-                console.log(response.status);
-                const responseMovieInfo = response.data.results;
-                responseMovieInfo.forEach((movieInfo) => {
-                    movieDataCopy.push(movieInfo);
+                this.setState({
+                    movieData: response.data.results
                 });
-                console.log(movieDataCopy);
-            });
-        this.setState({
-            movieData:movieDataCopy,
-        });
+            }.bind(this));
         let counterMonth = this.state.counter;
         let currentMonth = this.state.monthName;
         this.setState({
@@ -76,8 +68,10 @@ class App extends React.Component {
         var daysOfMonth = this.getDaysOfMonthV2();
         var firstDateInMonth = daysOfMonth[0];
         var nullDate = {
-            getDate: () => {
-            }
+            getDate: () => {},
+            getMonth: () => {},
+            getYear: () => {}
+
         };
 
         var i = 0;
@@ -153,9 +147,7 @@ class App extends React.Component {
     displayMonth() {
         const counter = this.state.monthNumber;
         const monthNameName = this.state.counter;
-        console.log(monthNameName);
         let monthNameIsNow = monthNameName[counter];
-        console.log(monthNameIsNow);
         this.setState({
             monthName: monthNameIsNow,
         });

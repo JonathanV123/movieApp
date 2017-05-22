@@ -11,6 +11,14 @@ export default class SwitchMonthButtons extends React.Component {
     render(){
         return(
             <div className="buttonAndMonthNameContainer">
+                <div className = "titleContainer">
+                    <div className="title">
+                        Movie Calendar
+                    </div>
+                    <div className="titleDesc">
+                        The biggest releases in film.
+                    </div>
+                </div>
                 <button onClick={() => {this.props.prevMonth(); this.props.displayMonth();}}>
                     Previous Month
                 </button>

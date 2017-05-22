@@ -1,4 +1,8 @@
-.App {
+body{
+    margin:0;
+    padding:0;
+}
+.App{
     text-align: center;
     height:100vh;
     width:100%;
@@ -13,7 +17,7 @@
     display:flex;
     justify-content:center;
     align-items:center;
-    flex-direction:row;
+    flex-direction:column;
 }
 .monthContainer{
     width:100%;
@@ -33,10 +37,17 @@
 }
 .collectionOfDays{
     width:14%;
+    height:95%;
 }
 .currentlySelectedMonth{
     width:20%;
     height:40%;
     border: 1px solid black;
+    color:white;
+}
+.title{
+    color:white;
+}
+.titleDesc{
     color:white;
 }
