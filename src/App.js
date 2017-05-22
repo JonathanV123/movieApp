@@ -2,9 +2,9 @@ import React from 'react';
 import SwitchMonthButtons from './components/SwitchMonthButtons.js';
 import RenderDaysInMonth from './components/RenderDaysInMonth.js';
 import axios from 'axios';
-
 import './App.css';
-const DAYS_OF_WEEK = ["Sun","Mon","Tues","Wed","Thurs","Fri","Sat"];
+
+const DAYS_OF_WEEK = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
 class App extends React.Component {
     constructor() {
         super();
@@ -16,7 +16,7 @@ class App extends React.Component {
         this.generateDayNameDays = this.generateDayNameDays.bind(this);
         this.getDayName = this.getDayName.bind(this);
         this.getDaysOfMonthV2 = this.getDaysOfMonthV2.bind(this);
-
+        this.componentWillMount = this.componentWillMount.bind(this);
 
         this.state = {
             year: new Date().getFullYear(),
@@ -41,17 +41,26 @@ class App extends React.Component {
             firstDay: null,
             lastDay: null,
             dayNameDays: this.generateDayNameDays(),
+            movieData:[],
         };
     }
 
     componentWillMount() {
 // Performing a GET request
-        axios.get('https://api.themoviedb.org/3/discover/movie?api_key=<<ENTER KEY HERE>>&language=en-US&region=US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&release_date.gte=2017-05-01&release_date.lte=2017-05-31')
-            .then(function(response){
+        const movieDataCopy = this.state.movieData;
+        axios.get('https://api.themoviedb.org/3/discover/movie?api_key=a0bab1433b22d4b59bf466484c131da6&language=en-US&region=US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&release_date.gte=2017-05-01&release_date.lte=2017-05-31')
+            .then(function (response) {
                 console.log(response.data);
                 console.log(response.status);
+                const responseMovieInfo = response.data.results;
+                responseMovieInfo.forEach((movieInfo) => {
+                    movieDataCopy.push(movieInfo);
+                });
+                console.log(movieDataCopy);
             });
-
+        this.setState({
+            movieData:movieDataCopy,
+        });
         let counterMonth = this.state.counter;
         let currentMonth = this.state.monthName;
         this.setState({
@@ -66,7 +75,10 @@ class App extends React.Component {
         var dayNameDays = this.generateDayNameDays();
         var daysOfMonth = this.getDaysOfMonthV2();
         var firstDateInMonth = daysOfMonth[0];
-        var nullDate = { getDate: ()=>{} };
+        var nullDate = {
+            getDate: () => {
+            }
+        };
 
         var i = 0;
         while (i < firstDateInMonth.getDay()) {
@@ -95,12 +107,13 @@ class App extends React.Component {
         var daysInMonth = [];
         //first day of this.state.monthNumber
         var date = new Date(this.state.year, this.state.monthNumber);
-        while(date.getMonth() === this.state.monthNumber) {
+        while (date.getMonth() === this.state.monthNumber) {
             daysInMonth.push(new Date(date));
             date.setDate(date.getDate() + 1)
         }
         return daysInMonth
     }
+
     prevMonth() {
         let monthNameCounter = this.state.counter;
         let monthNumber = this.state.monthNumber;
@@ -183,6 +196,7 @@ class App extends React.Component {
                     currentDay={this.state.currentDay}
                     numberOfDaysInMonth={this.state.numberOfDaysInMonth}
                     dayNameDays={this.state.dayNameDays}
+                    movieData={this.state.movieData}
                 />
             </div>
         );

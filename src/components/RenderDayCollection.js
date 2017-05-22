@@ -11,14 +11,14 @@ export default class RenderDayCollection extends React.Component {
         let daysOfWeek = this.props.dates;
         console.log(daysOfWeek);
         for (let date in daysOfWeek) {
-            individualDayComponents.push(<RenderIndividualDay date={daysOfWeek[date]} key={Math.random()}/>);
+            individualDayComponents.push(<RenderIndividualDay date={daysOfWeek[date]} key={Math.random()} movieData={this.props.movieData}/>);
             console.log(daysOfWeek[date]);
         }
         return individualDayComponents;
     }
     render() {
         return (
-            <div className="day">
+            <div className="collectionOfDays">
                 {this.renderIndividualDay()}
             </div>
         )

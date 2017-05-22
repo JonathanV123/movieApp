@@ -8,10 +8,8 @@ export default class RenderDaysInMonth extends React.Component {
     }
     render() {
         return (
-            <div className="dayContainer">
-                <div className="rowOfWeekNames">
+            <div className="monthContainer">
                     {this.renderDaysOfWeek()}
-                </div>
             </div>
         )
     }
