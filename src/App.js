@@ -63,6 +63,11 @@ class App extends React.Component {
         this.fixed();
     }
 
+    onMovieClick(movie) {
+        // this.setState({
+        //currentMovie: movie,
+    //});
+    }
     fixed() {
         var dayNameDays = this.generateDayNameDays();
         var daysOfMonth = this.getDaysOfMonthV2();
@@ -168,7 +173,6 @@ class App extends React.Component {
             numberOfDaysInMonth: initNumOfDaysInMonth
         })
     }
-
     render() {
         return (
             <div className="App">

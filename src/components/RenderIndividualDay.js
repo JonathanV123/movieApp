@@ -17,20 +17,29 @@ export default class RenderIndividualDay extends React.Component {
             return this.props.movieData[0].poster_path
         }
     }
+
+    onClick() {
+        //call this with whatever current movie
+        this.props.onMovieClick(this.props.movieData[0])
+    }
     render() {
         return (
             <div style={{
                 width: "154px",
-                height: "100px",
+                height: "231px",
                 border: "1px solid black",
                 display: "flex",
                 color:"white",
                 backgroundColor:"#303030",
                 alignItems:"flex-start",
                 backgroundRepeat:"no-repeat",
-                backgroundSize:"154px 100px",
-                backgroundImage: "url(" + "https://image.tmdb.org/t/p/w154" + this.renderPoster() + ")"}}>
-                {this.props.date.getDate()}
+                backgroundSize:"100%",
+                fontWeight:"bold",
+                backgroundImage: "url(" + "https://image.tmdb.org/t/p/w300" + this.renderPoster() + ")"}}
+                 onClick={this.onClick.bind(this)}>
+                <div className="dateOfDay">
+                    {this.props.date.getDate()}
+                </div>
                 {/*{this.renderTitle()}*/}
             </div>
         )
