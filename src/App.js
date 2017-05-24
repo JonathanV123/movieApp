@@ -1,6 +1,7 @@
 import React from 'react';
 import SwitchMonthButtons from './components/SwitchMonthButtons.js';
 import RenderDaysInMonth from './components/RenderDaysInMonth.js';
+import DisplayMovieInformation from './components/DisplayMovieInformation.js';
 import axios from 'axios';
 import './App.css';
 
@@ -17,6 +18,7 @@ class App extends React.Component {
         this.getDayName = this.getDayName.bind(this);
         this.getDaysOfMonthV2 = this.getDaysOfMonthV2.bind(this);
         this.componentWillMount = this.componentWillMount.bind(this);
+        this.onMovieClick=this.onMovieClick.bind(this);
 
         this.state = {
             year: new Date().getFullYear(),
@@ -64,9 +66,13 @@ class App extends React.Component {
     }
 
     onMovieClick(movie) {
-        // this.setState({
-        //currentMovie: movie,
-    //});
+        let movieCurrent=[];
+        console.log("app OnMovieClick");
+        console.log(movie);
+        movieCurrent.push(movie);
+         this.setState({
+        currentMovie: movieCurrent,
+    });
     }
     fixed() {
         var dayNameDays = this.generateDayNameDays();
@@ -176,6 +182,7 @@ class App extends React.Component {
     render() {
         return (
             <div className="App">
+                <DisplayMovieInformation currentMovieDisplaying={this.state.currentMovie}/>
                 <SwitchMonthButtons
                     monthName={this.state.monthName}
                     monthNumber={this.state.count}
@@ -193,6 +200,7 @@ class App extends React.Component {
                     numberOfDaysInMonth={this.state.numberOfDaysInMonth}
                     dayNameDays={this.state.dayNameDays}
                     movieData={this.state.movieData}
+                    onMovieClick={this.onMovieClick}
                 />
             </div>
         );

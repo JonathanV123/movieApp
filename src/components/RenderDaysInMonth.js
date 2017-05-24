@@ -18,7 +18,7 @@ export default class RenderDaysInMonth extends React.Component {
         var dayOfWeekComponents = [];
         let daysOfWeek = this.props.dayNameDays;
         for (let dayName in daysOfWeek) {
-            dayOfWeekComponents.push(<RenderDayCollection dates={this.props.dayNameDays[dayName]} key={dayName} movieData={this.props.movieData}/>);
+            dayOfWeekComponents.push(<RenderDayCollection dates={this.props.dayNameDays[dayName]} key={dayName} movieData={this.props.movieData} onMovieClick={this.props.onMovieClick}/>);
         }
         return dayOfWeekComponents;
     }

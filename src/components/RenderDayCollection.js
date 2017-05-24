@@ -7,9 +7,6 @@ export default class RenderDayCollection extends React.Component {
         this.renderIndividualDay = this.renderIndividualDay.bind(this);
         this.hasMatchingDate = this.hasMatchingDate.bind(this);
     }
-    onMovieClick(){
-        console.log("clicked!");
-    }
     renderIndividualDay(){
         var individualDayComponents = [];
         let daysOfWeek = this.props.dates;
@@ -19,7 +16,7 @@ export default class RenderDayCollection extends React.Component {
                 let releaseDate = new Date(movie.release_date);
                 return this.hasMatchingDate(releaseDate,currentIterationDate)
             });
-            individualDayComponents.push(<RenderIndividualDay date={currentIterationDate} key={Math.random()} movieData={moviesReleasedOnCurrentIterationDate} onClick={this.onMovieClick}/>);
+            individualDayComponents.push(<RenderIndividualDay date={currentIterationDate} key={Math.random()} movieData={moviesReleasedOnCurrentIterationDate} onMovieClick={this.props.onMovieClick}/>);
         }
         return individualDayComponents;
     }

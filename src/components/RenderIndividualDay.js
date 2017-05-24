@@ -5,6 +5,7 @@ export default class RenderIndividualDay extends React.Component {
         super();
         // this.renderTitle.bind(this);
         this.renderPoster.bind(this);
+        this.onClick.bind(this);
     }
     // renderTitle(){
     //     if(this.props.movieData.length > 0){
@@ -20,7 +21,8 @@ export default class RenderIndividualDay extends React.Component {
 
     onClick() {
         //call this with whatever current movie
-        this.props.onMovieClick(this.props.movieData[0])
+        this.props.onMovieClick(this.props.movieData[0]);
+        console.log("clicked component");
     }
     render() {
         return (
