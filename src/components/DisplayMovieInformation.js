@@ -28,51 +28,34 @@ export default class DisplayMovieInformation extends React.Component {
             );
         }
     }
-    mapCast(cast) {
-        // if (this.props.creditsLoaded === true) {
-        //     console.log(this.props.creditsLoaded);
-        //         let crewContent = cast.map((castCrew) =>
-        //         <div className="featuredCrew" key={Math.random()}>
-        //             <div className="actor" key={Math.random()}>
-        //                 {crewContent[0].name}
-        //             </div>
-        //             <div className="featuredCast" key={Math.random()}>
-        //
-        //             </div>
-        //         </div>
-        //     );
-        //     return (
-        //         <div className="tempCrew">
-        //             {crewContent}
-        //         </div>
-        //     );
-        // }
+    mapCast(cast,crew) {
+        if (this.props.creditsLoaded === true) {
+            return (
+                <div className="featuredCast" key={Math.random()}>
+                    <div className="actor" key={Math.random()}>
+                        {cast[0]}
+                    </div>
+                    <div className="actor" key={Math.random()}>
+                        {cast[1]}
+                    </div>
+                    <div className="actor" key={Math.random()}>
+                        {cast[2]}
+                    </div>
+                    <div className="actor" key={Math.random()}>
+                        {cast[3]}
+                    </div>
+                    <div className="director" key={Math.random()}>
+                        {crew}
+                    </div>
+                </div>
+            );
+        }
     }
-    // mapCrew(crew) {
-    //     if (this.props.creditsLoaded === true && crew.length === 0) {
-    //         let castContent = crew.map((castCrew) =>
-    //             <div className="featuredCrew" key={Math.random()}>
-    //                 <div className="actor" key={Math.random()}>
-    //                     {castContent[0].name}
-    //                 </div>
-    //                 <div className="featuredCast" key={Math.random()}>
-    //
-    //                 </div>
-    //             </div>
-    //         );
-    //         return (
-    //             <div className="tempCast">
-    //                 {castContent}
-    //             </div>
-    //         );
-    //     }
-    // }
     render() {
         return (
             <div className="movieInfoContainer" style={{zIndex:this.props.visible}}>
                 {this.displayMovieInformation(this.props.currentMovieDisplaying)}
-                {this.mapCast(this.props.currentCast)}
-                {/*{this.mapCrew(this.props.currentCrew)}*/}
+                {this.mapCast(this.props.currentMovieCast,this.props.currentMovieCrew)}
             </div>
         )
     }
