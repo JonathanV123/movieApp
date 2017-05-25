@@ -19,6 +19,8 @@ class App extends React.Component {
         this.getDaysOfMonthV2 = this.getDaysOfMonthV2.bind(this);
         this.componentWillMount = this.componentWillMount.bind(this);
         this.onMovieClick=this.onMovieClick.bind(this);
+        this.hideMovieInformation=this.hideMovieInformation.bind(this);
+
 
         this.state = {
             year: new Date().getFullYear(),
@@ -44,6 +46,8 @@ class App extends React.Component {
             lastDay: null,
             dayNameDays: this.generateDayNameDays(),
             movieData:[],
+            movieInformationLoaded:false,
+            visible:-1,
         };
     }
 
@@ -66,14 +70,22 @@ class App extends React.Component {
     }
 
     onMovieClick(movie) {
-        let movieCurrent=[];
+        let movieCurrent = [];
         console.log("app OnMovieClick");
         console.log(movie);
         movieCurrent.push(movie);
-         this.setState({
-        currentMovie: movieCurrent,
-    });
+        this.setState({
+            currentMovie: movieCurrent,
+            movieInformationLoaded: true,
+            visible:1
+        });
     }
+    hideMovieInformation(){
+        this.setState({
+            visible:-1,
+            movieInformationLoaded: false,
+            currentMovie: {},
+        });    }
     fixed() {
         var dayNameDays = this.generateDayNameDays();
         var daysOfMonth = this.getDaysOfMonthV2();
@@ -182,7 +194,7 @@ class App extends React.Component {
     render() {
         return (
             <div className="App">
-                <DisplayMovieInformation currentMovieDisplaying={this.state.currentMovie}/>
+                <DisplayMovieInformation currentMovieDisplaying={this.state.currentMovie} movieInformationLoaded={this.state.movieInformationLoaded} visible={this.state.visible} hideMovieInformation={this.hideMovieInformation}/>
                 <SwitchMonthButtons
                     monthName={this.state.monthName}
                     monthNumber={this.state.count}
@@ -208,3 +220,4 @@ class App extends React.Component {
 }
 export default App;
 
+console.log("App");
