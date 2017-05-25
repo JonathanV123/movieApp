@@ -94,4 +94,5 @@ body{
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
+    background-image: radial-gradient(at 10% 30%, #16a2b1 0%, #12818d 100%);
 }

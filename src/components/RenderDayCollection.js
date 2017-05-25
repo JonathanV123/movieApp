@@ -13,7 +13,8 @@ export default class RenderDayCollection extends React.Component {
         for (let dayNum in daysOfWeek) {
             let currentIterationDate = daysOfWeek[dayNum];
             let moviesReleasedOnCurrentIterationDate = this.props.movieData.filter((movie)=>{
-                let releaseDate = new Date(movie.release_date);
+                let removeDashes = movie.release_date.replace(/-/g,"/");
+                let releaseDate = new Date(removeDashes);
                 return this.hasMatchingDate(releaseDate,currentIterationDate)
             });
             individualDayComponents.push(<RenderIndividualDay date={currentIterationDate} key={Math.random()} movieData={moviesReleasedOnCurrentIterationDate} onMovieClick={this.props.onMovieClick}/>);

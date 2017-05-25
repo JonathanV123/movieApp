@@ -14,6 +14,13 @@ export default class RenderIndividualDay extends React.Component {
     //     }
     // }
     renderPoster(){
+        let multiplePosters = [];
+        if(this.props.movieData.length > 1){
+            console.log(this.props.movieData[0].poster_path);
+            for(let i =0; i<=this.props.movieData.length; i++){
+                // multiplePosters.push(this.props.movieData[i].poster_path)
+            }
+        }
         if(this.props.movieData.length > 0){
             return this.props.movieData[0].poster_path
         }
@@ -22,7 +29,6 @@ export default class RenderIndividualDay extends React.Component {
     onClick() {
         //call this with whatever current movie
         this.props.onMovieClick(this.props.movieData[0]);
-        console.log("clicked component");
     }
     render() {
         return (
