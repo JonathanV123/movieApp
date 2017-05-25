@@ -21,7 +21,6 @@ class App extends React.Component {
         this.onMovieClick=this.onMovieClick.bind(this);
         this.hideMovieInformation=this.hideMovieInformation.bind(this);
 
-
         this.state = {
             year: new Date().getFullYear(),
             monthName: new Date().getMonth(),
@@ -48,6 +47,7 @@ class App extends React.Component {
             movieData:[],
             movieInformationLoaded:false,
             visible:-1,
+            creditsLoaded:false,
         };
     }
 
@@ -71,21 +71,35 @@ class App extends React.Component {
 
     onMovieClick(movie) {
         let movieCurrent = [];
-        console.log("app OnMovieClick");
-        console.log(movie);
+        let creditsCast = [];
+        let creditsCrew = [];
+        axios.get('https://api.themoviedb.org/3/movie/'+ movie.id +'?api_key=a0bab1433b22d4b59bf466484c131da6&&append_to_response=credits')
+            .then(function (response) {
+                console.log(response);
+                creditsCast.push(response.data.credits.cast[0].name);
+                creditsCrew.push(response.data.credits.crew[0].name);
+            }.bind(this));
         movieCurrent.push(movie);
         this.setState({
             currentMovie: movieCurrent,
             movieInformationLoaded: true,
-            visible:1
+            visible:1,
+            currentCast:creditsCast,
+            currentCrew:creditsCrew,
+            creditsLoaded:true,
         });
+       // why undefined after setState ? console.log(this.state.currentMovie);
+        //this keyword on axios call
     }
     hideMovieInformation(){
         this.setState({
             visible:-1,
             movieInformationLoaded: false,
             currentMovie: {},
-        });    }
+            currentMovieCredits:{},
+            creditsLoaded: false,
+        });
+    }
     fixed() {
         var dayNameDays = this.generateDayNameDays();
         var daysOfMonth = this.getDaysOfMonthV2();
@@ -194,7 +208,15 @@ class App extends React.Component {
     render() {
         return (
             <div className="App">
-                <DisplayMovieInformation currentMovieDisplaying={this.state.currentMovie} movieInformationLoaded={this.state.movieInformationLoaded} visible={this.state.visible} hideMovieInformation={this.hideMovieInformation}/>
+                <DisplayMovieInformation
+                    currentMovieDisplaying={this.state.currentMovie}
+                    movieInformationLoaded={this.state.movieInformationLoaded}
+                    visible={this.state.visible}
+                    hideMovieInformation={this.hideMovieInformation}
+                    currentMovieCast={this.state.currentCast}
+                    currentMovieCrew={this.state.currentCrew}
+                    creditsLoaded={this.state.creditsLoaded}
+                />
                 <SwitchMonthButtons
                     monthName={this.state.monthName}
                     monthNumber={this.state.count}
