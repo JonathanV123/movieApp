@@ -10,9 +10,10 @@ export default class RenderIndividualDay extends React.Component {
             currentMovie: this.props.movieData[0] || {}
         });
         if(this.props.movieData.length > 0){
-            setInterval(this.cycleCurrentMovie.bind(this,0),3000);
+            setInterval(this.cycleCurrentMovie.bind(this,0),2500);
         }
     }
+    //Over Time Mover Posters Start To Spam
     cycleCurrentMovie(currentMovieIndex){
         let nextMovieIndex;
         if(currentMovieIndex + 1 >= this.props.movieData.length){
@@ -25,7 +26,8 @@ export default class RenderIndividualDay extends React.Component {
         });
         setInterval(
             this.cycleCurrentMovie.bind(this,nextMovieIndex)
-            , 3000);
+            , 2500);
+        //clarify difference between two setIntervals 0 vs nextMovie index param
     }
     onClick() {
         //call this with whatever current movie
@@ -33,10 +35,12 @@ export default class RenderIndividualDay extends React.Component {
     }
     render() {
         return (
-            <div className="individualDay" style={{
-                backgroundImage: "url(" + "https://image.tmdb.org/t/p/w300"+this.state.currentMovie.poster_path+")",
-            }}
-                 onClick={this.onClick.bind(this)}>
+            <div className="individualDay"
+                style={{
+                    backgroundImage: "url(" + "https://image.tmdb.org/t/p/w300"+this.state.currentMovie.poster_path+")",
+                }}
+                onClick={this.onClick.bind(this)}
+            >
                 <div className="dateOfDay">
                     {this.props.date.getDate()}
                 </div>

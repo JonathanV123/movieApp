@@ -5,7 +5,6 @@ export default class DisplayMovieInformation extends React.Component {
     constructor() {
         super();
         this.displayMovieInformation.bind(this);
-        // this.mapCastAndCrew.bind(this);
     }
     displayMovieInformation(currentMovie) {
         if (this.props.ajaxMovieInfoLoaded === true) {

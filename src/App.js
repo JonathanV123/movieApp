@@ -45,15 +45,14 @@ class App extends React.Component {
             lastDay: null,
             dayNameDays: this.generateDayNameDays(),
             movieData:[],
-            movieInformationLoaded:false,
+            ajaxMovieInformationLoaded:false,
             visible:-1,
-            creditsLoaded:false,
-            multipleMovies:[]
+            ajaxCreditsLoaded:false,
         };
     }
 
     componentWillMount() {
-// Performing a GET request
+// Performing a GET request to grab initial movie data for the month
         axios.get('https://api.themoviedb.org/3/discover/movie?api_key=a0bab1433b22d4b59bf466484c131da6&language=en-US&region=US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&release_date.gte=2017-05-01&release_date.lte=2017-05-31')
             .then(function (response) {
                 this.setState({
@@ -69,16 +68,10 @@ class App extends React.Component {
         this.getDay();
         this.fixed();
     }
-    //Create Update Poster Here with Data Provided
+    //Pass in current movie that was clicked
     onMovieClick(movie) {
-        let movieCurrent = [];
-        let moviesCurrent =[];
-        if(movie.length >=1){
-            moviesCurrent.push(movie);
-            this.setState({
-                multipleMovies:moviesCurrent,
-            })
-        }else{
+        let currentMovie = [];
+            //Get Movie ID 
             axios.get('https://api.themoviedb.org/3/movie/'+ movie.id +'?api_key=a0bab1433b22d4b59bf466484c131da6&&append_to_response=credits')
                 .then(function (response) {
                     let tempCastStorage = [];
@@ -87,47 +80,27 @@ class App extends React.Component {
                             tempCastStorage.push(response.data.credits.cast[i].name);
                         }
                     }
+                    currentMovie.push(movie);
                     this.setState({
-                        currentMovie: movieCurrent,
-                        movieInformationLoaded: true,
+                        currentMovieDisplaying: currentMovie,
+                        ajaxMovieInformationLoaded: true,
                         visible:1,
                         currentCast:tempCastStorage,
                         currentCrew:response.data.credits.crew[0].name,
-                        creditsLoaded:true,
+                        ajaxCreditsLoaded:true,
                     });
                 }.bind(this));
-            movieCurrent.push(movie);
             // why undefined after setState ? console.log(this.state.currentMovie);
             //this keyword on axios call
-        }
-        // axios.get('https://api.themoviedb.org/3/movie/'+ movie.id +'?api_key=a0bab1433b22d4b59bf466484c131da6&&append_to_response=credits')
-        //     .then(function (response) {
-        //         let tempCastStorage = [];
-        //         for(let i=0; i<=0; i++){
-        //             for(let i=0; i<=3; i++){
-        //                 tempCastStorage.push(response.data.credits.cast[i].name);
-        //             }
-        //         }
-        //         this.setState({
-        //             currentMovie: movieCurrent,
-        //             movieInformationLoaded: true,
-        //             visible:1,
-        //             currentCast:tempCastStorage,
-        //             currentCrew:response.data.credits.crew[0].name,
-        //             creditsLoaded:true,
-        //         });
-        //     }.bind(this));
-        // movieCurrent.push(movie);
-       // why undefined after setState ? console.log(this.state.currentMovie);
-        //this keyword on axios call
     }
+    //Hide movie info pop up when exit button is clicked
     hideMovieInformation(){
         this.setState({
             visible:-1,
-            movieInformationLoaded: false,
-            currentMovie: {},
+            ajaxMovieInformationLoaded: false,
+            currentMovieDisplaying: {},
             currentMovieCredits:{},
-            creditsLoaded: false,
+            ajaxCreditsLoaded: false,
         });
     }
     fixed() {
@@ -239,13 +212,13 @@ class App extends React.Component {
         return (
             <div className="App">
                 <DisplayMovieInformation
-                    currentMovieDisplaying={this.state.currentMovie}
-                    movieInformationLoaded={this.state.movieInformationLoaded}
+                    currentMovieDisplaying={this.state.currentMovieDisplay}
+                    ajaxMovieInformationLoaded={this.state.ajaxMovieInformationLoaded}
                     visible={this.state.visible}
                     hideMovieInformation={this.hideMovieInformation}
                     currentMovieCast={this.state.currentCast}
                     currentMovieCrew={this.state.currentCrew}
-                    creditsLoaded={this.state.creditsLoaded}
+                    ajaxCreditsLoaded={this.state.ajaxCreditsLoaded}
                 />
                 <SwitchMonthButtons
                     monthName={this.state.monthName}
@@ -265,7 +238,6 @@ class App extends React.Component {
                     dayNameDays={this.state.dayNameDays}
                     movieData={this.state.movieData}
                     onMovieClick={this.onMovieClick}
-                    multipleMovies={this.state.multipleMovies}
                 />
             </div>
         );
