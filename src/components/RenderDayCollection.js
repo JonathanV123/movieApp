@@ -17,7 +17,12 @@ export default class RenderDayCollection extends React.Component {
                 let releaseDate = new Date(removeDashes);
                 return this.hasMatchingDate(releaseDate,currentIterationDate)
             });
-            individualDayComponents.push(<RenderIndividualDay date={currentIterationDate} key={Math.random()} movieData={moviesReleasedOnCurrentIterationDate} onMovieClick={this.props.onMovieClick}/>);
+            individualDayComponents.push(<RenderIndividualDay
+                date={currentIterationDate} key={Math.random()}
+                movieData={moviesReleasedOnCurrentIterationDate}
+                onMovieClick={this.props.onMovieClick}
+                multipleMovies={this.props.multipleMovies}
+            />);
         }
         return individualDayComponents;
     }

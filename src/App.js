@@ -48,6 +48,7 @@ class App extends React.Component {
             movieInformationLoaded:false,
             visible:-1,
             creditsLoaded:false,
+            multipleMovies:[]
         };
     }
 
@@ -71,8 +72,12 @@ class App extends React.Component {
     //Create Update Poster Here with Data Provided
     onMovieClick(movie) {
         let movieCurrent = [];
+        let moviesCurrent =[];
         if(movie.length >=1){
-            console.log(movie);
+            moviesCurrent.push(movie);
+            this.setState({
+                multipleMovies:moviesCurrent,
+            })
         }else{
             axios.get('https://api.themoviedb.org/3/movie/'+ movie.id +'?api_key=a0bab1433b22d4b59bf466484c131da6&&append_to_response=credits')
                 .then(function (response) {
@@ -260,6 +265,7 @@ class App extends React.Component {
                     dayNameDays={this.state.dayNameDays}
                     movieData={this.state.movieData}
                     onMovieClick={this.onMovieClick}
+                    multipleMovies={this.state.multipleMovies}
                 />
             </div>
         );

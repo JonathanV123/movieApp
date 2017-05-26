@@ -23,6 +23,7 @@ export default class RenderIndividualDay extends React.Component {
         // }
         // console.log(this.props.movieData[]);
         if(this.props.movieData.length > 0){
+            setInterval(function(){ console.log("Hello"); }, 3000);
             return this.props.movieData[0].poster_path
         }
     }
@@ -48,7 +49,9 @@ export default class RenderIndividualDay extends React.Component {
                 backgroundRepeat:"no-repeat",
                 backgroundSize:"100%",
                 fontWeight:"bold",
-                backgroundImage: "url(" + "https://image.tmdb.org/t/p/w300" + this.renderPoster() + ")"}}
+                backgroundImage: "url(" + "https://image.tmdb.org/t/p/w300" + this.renderPoster() + ")",
+
+            }}
                  onClick={this.onClick.bind(this)}>
                 <div className="dateOfDay">
                     {this.props.date.getDate()}
