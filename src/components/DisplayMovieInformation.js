@@ -8,7 +8,7 @@ export default class DisplayMovieInformation extends React.Component {
         // this.mapCastAndCrew.bind(this);
     }
     displayMovieInformation(currentMovie) {
-        if (this.props.movieInformationLoaded === true) {
+        if (this.props.ajaxMovieInfoLoaded === true) {
             let content = currentMovie.map((movInfo) =>
                 <div className="bgWrapper" style={{backgroundImage: "url(" + "https://image.tmdb.org/t/p/w1400_and_h450_bestv2" + movInfo.poster_path + ")"}} key={Math.random()}>
                     <div className="poster" key={Math.random()}></div>
@@ -29,7 +29,7 @@ export default class DisplayMovieInformation extends React.Component {
         }
     }
     mapCast(cast,crew) {
-        if (this.props.creditsLoaded === true) {
+        if (this.props.ajaxCreditsLoaded === true) {
             return (
                 <div className="featuredCast" key={Math.random()}>
                     <div className="actor" key={Math.random()}>

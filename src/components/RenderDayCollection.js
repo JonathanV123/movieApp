@@ -21,7 +21,6 @@ export default class RenderDayCollection extends React.Component {
                 date={currentIterationDate} key={Math.random()}
                 movieData={moviesReleasedOnCurrentIterationDate}
                 onMovieClick={this.props.onMovieClick}
-                multipleMovies={this.props.multipleMovies}
             />);
         }
         return individualDayComponents;

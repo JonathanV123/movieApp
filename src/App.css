@@ -31,13 +31,16 @@ body{
     flex-wrap:wrap;
 }
 .individualDay{
-    width:100%;
-    height:20%;
-    border: 1px solid white;
-    display:flex;
-    align-items:flex-start;
+    width: 154px;
+    height: 231px;
+    border: 1px solid black;
+    display: flex;
     color:white;
-    background-color: rgb(48,48,48);
+    background-color:#303030;
+    align-items:flex-start;
+    background-repeat:no-repeat;
+    background-size:100%;
+    font-weight:bold;
 }
 .collectionOfDays{
     width:14%;

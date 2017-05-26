@@ -3,60 +3,43 @@ import React from 'react';
 export default class RenderIndividualDay extends React.Component {
     constructor() {
         super();
-        // this.renderTitle.bind(this);
-        this.renderPoster.bind(this);
         this.onClick.bind(this);
     }
-    // renderTitle(){
-    //     if(this.props.movieData.length > 0){
-    //         console.log(this.props.movieData[0].poster_path);
-    //         return this.props.movieData[0].title;
-    //     }
-    // }
-    renderPoster(){
-        let multiplePosters = [];
-        // if(this.props.movieData.length > 1){
-        //     for(let i =0; i<=this.props.movieData.length; i++){
-        //         // multiplePosters.push(this.props.movieData[i].poster_path)
-        //         console.log(this.props.movieData[i])
-        //     }
-        // }
-        // console.log(this.props.movieData[]);
+    componentWillMount(){
+        this.setState({
+            currentMovie: this.props.movieData[0] || {}
+        });
         if(this.props.movieData.length > 0){
-            setInterval(function(){ console.log("Hello"); }, 3000);
-            return this.props.movieData[0].poster_path
+            setInterval(this.cycleCurrentMovie.bind(this,0),3000);
         }
     }
-
+    cycleCurrentMovie(currentMovieIndex){
+        let nextMovieIndex;
+        if(currentMovieIndex + 1 >= this.props.movieData.length){
+            nextMovieIndex = 0;
+        }else{
+            nextMovieIndex = currentMovieIndex + 1;
+        }
+        this.setState({
+            currentMovie:this.props.movieData[nextMovieIndex],
+        });
+        setInterval(
+            this.cycleCurrentMovie.bind(this,nextMovieIndex)
+            , 3000);
+    }
     onClick() {
         //call this with whatever current movie
-        if(this.props.movieData.length >= 1){
-            this.props.onMovieClick(this.props.movieData)
-        }else{
             this.props.onMovieClick(this.props.movieData[0]);
-        }
     }
     render() {
         return (
-            <div style={{
-                width: "154px",
-                height: "231px",
-                border: "1px solid black",
-                display: "flex",
-                color:"white",
-                backgroundColor:"#303030",
-                alignItems:"flex-start",
-                backgroundRepeat:"no-repeat",
-                backgroundSize:"100%",
-                fontWeight:"bold",
-                backgroundImage: "url(" + "https://image.tmdb.org/t/p/w300" + this.renderPoster() + ")",
-
+            <div className="individualDay" style={{
+                backgroundImage: "url(" + "https://image.tmdb.org/t/p/w300"+this.state.currentMovie.poster_path+")",
             }}
                  onClick={this.onClick.bind(this)}>
                 <div className="dateOfDay">
                     {this.props.date.getDate()}
                 </div>
-                {/*{this.renderTitle()}*/}
             </div>
         )
     }

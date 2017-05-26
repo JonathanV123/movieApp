@@ -4,9 +4,6 @@ import React from 'react';
 export default class SwitchMonthButtons extends React.Component {
     constructor() {
         super();
-        this.monthsIndex = this.monthsIndex.bind(this);
-    }
-    monthsIndex(){
     }
     render(){
         return(
