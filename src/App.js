@@ -68,27 +68,51 @@ class App extends React.Component {
         this.getDay();
         this.fixed();
     }
-
+    //Create Update Poster Here with Data Provided
     onMovieClick(movie) {
         let movieCurrent = [];
-        axios.get('https://api.themoviedb.org/3/movie/'+ movie.id +'?api_key=a0bab1433b22d4b59bf466484c131da6&&append_to_response=credits')
-            .then(function (response) {
-                let tempCastStorage = [];
-                for(let i=0; i<=0; i++){
-                    for(let i=0; i<=3; i++){
-                        tempCastStorage.push(response.data.credits.cast[i].name);
+        if(movie.length >=1){
+            console.log(movie);
+        }else{
+            axios.get('https://api.themoviedb.org/3/movie/'+ movie.id +'?api_key=a0bab1433b22d4b59bf466484c131da6&&append_to_response=credits')
+                .then(function (response) {
+                    let tempCastStorage = [];
+                    for(let i=0; i<=0; i++){
+                        for(let i=0; i<=3; i++){
+                            tempCastStorage.push(response.data.credits.cast[i].name);
+                        }
                     }
-                }
-                this.setState({
-                    currentMovie: movieCurrent,
-                    movieInformationLoaded: true,
-                    visible:1,
-                    currentCast:tempCastStorage,
-                    currentCrew:response.data.credits.crew[0].name,
-                    creditsLoaded:true,
-                });
-            }.bind(this));
-        movieCurrent.push(movie);
+                    this.setState({
+                        currentMovie: movieCurrent,
+                        movieInformationLoaded: true,
+                        visible:1,
+                        currentCast:tempCastStorage,
+                        currentCrew:response.data.credits.crew[0].name,
+                        creditsLoaded:true,
+                    });
+                }.bind(this));
+            movieCurrent.push(movie);
+            // why undefined after setState ? console.log(this.state.currentMovie);
+            //this keyword on axios call
+        }
+        // axios.get('https://api.themoviedb.org/3/movie/'+ movie.id +'?api_key=a0bab1433b22d4b59bf466484c131da6&&append_to_response=credits')
+        //     .then(function (response) {
+        //         let tempCastStorage = [];
+        //         for(let i=0; i<=0; i++){
+        //             for(let i=0; i<=3; i++){
+        //                 tempCastStorage.push(response.data.credits.cast[i].name);
+        //             }
+        //         }
+        //         this.setState({
+        //             currentMovie: movieCurrent,
+        //             movieInformationLoaded: true,
+        //             visible:1,
+        //             currentCast:tempCastStorage,
+        //             currentCrew:response.data.credits.crew[0].name,
+        //             creditsLoaded:true,
+        //         });
+        //     }.bind(this));
+        // movieCurrent.push(movie);
        // why undefined after setState ? console.log(this.state.currentMovie);
         //this keyword on axios call
     }
