@@ -20,6 +20,7 @@ class App extends React.Component {
         this.componentWillMount = this.componentWillMount.bind(this);
         this.onMovieClick=this.onMovieClick.bind(this);
         this.hideMovieInformation=this.hideMovieInformation.bind(this);
+        this.renderCurrentMovieModal=this.renderCurrentMovieModal.bind(this);
 
         this.state = {
             year: new Date().getFullYear(),
@@ -45,9 +46,6 @@ class App extends React.Component {
             lastDay: null,
             dayNameDays: this.generateDayNameDays(),
             movieData:[],
-            ajaxMovieInformationLoaded:false,
-            visible:-1,
-            ajaxCreditsLoaded:false,
         };
     }
 
@@ -70,37 +68,27 @@ class App extends React.Component {
     }
     //Pass in current movie that was clicked
     onMovieClick(movie) {
-        let currentMovie = [];
             //Get Movie ID 
             axios.get('https://api.themoviedb.org/3/movie/'+ movie.id +'?api_key=a0bab1433b22d4b59bf466484c131da6&&append_to_response=credits')
                 .then(function (response) {
-                    let tempCastStorage = [];
-                    for(let i=0; i<=0; i++){
-                        for(let i=0; i<=3; i++){
-                            tempCastStorage.push(response.data.credits.cast[i].name);
-                        }
-                    }
+                    let castNames = response.data.credits.cast.map((castMember)=>{
+                        return castMember.name
+                    });
                     currentMovie.push(movie);
                     this.setState({
-                        currentMovieDisplaying: currentMovie,
-                        ajaxMovieInformationLoaded: true,
-                        visible:1,
-                        currentCast:tempCastStorage,
+                        selectedMovie: movie,
+                        castMembers:tempCastStorage,
                         currentCrew:response.data.credits.crew[0].name,
-                        ajaxCreditsLoaded:true,
                     });
                 }.bind(this));
             // why undefined after setState ? console.log(this.state.currentMovie);
-            //this keyword on axios call
+            // this keyword on axios call
     }
     //Hide movie info pop up when exit button is clicked
     hideMovieInformation(){
         this.setState({
-            visible:-1,
-            ajaxMovieInformationLoaded: false,
-            currentMovieDisplaying: {},
+            selectedMovie: {},
             currentMovieCredits:{},
-            ajaxCreditsLoaded: false,
         });
     }
     fixed() {
@@ -149,20 +137,12 @@ class App extends React.Component {
     }
 
     prevMonth() {
-        let monthNameCounter = this.state.counter;
-        let monthNumber = this.state.monthNumber;
-        let newMonthNumber = monthNumber + 1;
-        if (newMonthNumber === 12) {
-            newMonthNumber = 0;
-            let nextYearIs = this.state.year + 1;
-            this.setState({
-                year: nextYearIs,
-            })
-        }
-        this.setState({
-            monthName: monthNameCounter[newMonthNumber],
-            monthNumber: newMonthNumber
-        });
+        let date = new Date(this.state.year,this.state.monthNumber);
+        var prevMonth = date.setMonth(date.getMonth() - 1);
+        var newPrevMonth = new Date(prevMonth);
+        // this.setState({
+        //     monthNumber: newPrevMonth,
+        // });
         this.getDay();
     }
 
@@ -208,18 +188,22 @@ class App extends React.Component {
             numberOfDaysInMonth: initNumOfDaysInMonth
         })
     }
+    renderCurrentMovieModal(){
+        if(this.state.selectedMovie) {
+            return (
+                <DisplayMovieInformation
+                    selectedMovie={this.state.selectedMovie}
+                    hideMovieInformation={this.hideMovieInformation}
+                    currentMovieCast={this.state.castMembers}
+                    currentMovieCrew={this.state.currentCrew}
+                />
+            )
+        }
+    }
     render() {
         return (
             <div className="App">
-                <DisplayMovieInformation
-                    currentMovieDisplaying={this.state.currentMovieDisplay}
-                    ajaxMovieInformationLoaded={this.state.ajaxMovieInformationLoaded}
-                    visible={this.state.visible}
-                    hideMovieInformation={this.hideMovieInformation}
-                    currentMovieCast={this.state.currentCast}
-                    currentMovieCrew={this.state.currentCrew}
-                    ajaxCreditsLoaded={this.state.ajaxCreditsLoaded}
-                />
+                {this.renderCurrentMovieModal}
                 <SwitchMonthButtons
                     monthName={this.state.monthName}
                     monthNumber={this.state.count}
