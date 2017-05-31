@@ -68,16 +68,18 @@ class App extends React.Component {
     }
     //Pass in current movie that was clicked
     onMovieClick(movie) {
-            //Get Movie ID 
+            //Get Movie ID
+            console.log("onMovieClickgotcalled");
             axios.get('https://api.themoviedb.org/3/movie/'+ movie.id +'?api_key=a0bab1433b22d4b59bf466484c131da6&&append_to_response=credits')
                 .then(function (response) {
+                    console.log("In callback now");
                     let castNames = response.data.credits.cast.map((castMember)=>{
                         return castMember.name
                     });
-                    currentMovie.push(movie);
+                    console.log(castNames);
                     this.setState({
                         selectedMovie: movie,
-                        castMembers:tempCastStorage,
+                        castMembers:castNames,
                         currentCrew:response.data.credits.crew[0].name,
                     });
                 }.bind(this));
