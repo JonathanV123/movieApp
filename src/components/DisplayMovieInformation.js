@@ -13,8 +13,11 @@ export default class DisplayMovieInformation extends React.Component {
                     <div className="bgWrapper"
                          style={{backgroundImage: "url(" + "https://image.tmdb.org/t/p/w1400_and_h450_bestv2" + currentMovie.poster_path + ")"}}
                          key={Math.random()}>
-                        <div className="poster"></div>
-                        <div className="movieTitle">{currentMovie.title}</div>
+                        <div className="movieTitle">{currentMovie.title + " " + "(" + currentMovie.release_date.slice(0,4)+")"}</div>
+                        <div className="poster"
+                             style={{backgroundImage: "url(" + "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + currentMovie.poster_path + ")"}}
+                             key={Math.random()}>
+                        </div>
                         <div className="overview">{currentMovie.overview}</div>
                         <div className="exitButton">
                             <button className="button" onClick={this.props.hideMovieInformation}>
