@@ -11,7 +11,7 @@ export default class DisplayMovieInformation extends React.Component {
         console.log("displayingMovieInfo");
             let content = (
                     <div className="bgWrapper"
-                         style={{backgroundImage: "url(" + "https://image.tmdb.org/t/p/w1400_and_h450_bestv2" + currentMovie.poster_path + ")"}}
+                         style={{backgroundImage: "url(" + "https://image.tmdb.org/t/p/w1400_and_h450_bestv2" + currentMovie.backdrop_path + "), linear-gradient(#eb01a5, #d13531)"}}
                          key={Math.random()}>
                         <div className="movieTitle">{currentMovie.title + " " + "(" + currentMovie.release_date.slice(0,4)+")"}</div>
                         <div className="poster"

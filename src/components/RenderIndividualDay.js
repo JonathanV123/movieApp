@@ -45,7 +45,7 @@ export default class RenderIndividualDay extends React.Component {
         return (
             <div className="individualDay"
                 style={{
-                    backgroundImage: "url(" + "https://image.tmdb.org/t/p/w300"+this.state.currentlyDisplayedMovie.poster_path+")",
+                    backgroundImage: "url(" + "https://image.tmdb.org/t/p/w342"+this.state.currentlyDisplayedMovie.poster_path+")",
                 }}
                 onClick={this.onMovieClick}
             >
