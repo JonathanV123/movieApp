@@ -48,7 +48,6 @@ class App extends React.Component {
             lastDay: null,
             dayNameDays: this.generateDayNameDays(),
             movieData:[],
-            ajaxDataReceived: false,
         };
     }
 
@@ -71,8 +70,6 @@ class App extends React.Component {
         if(this.state.monthNumber.toString().length < 2){
             this.addZeroForProperAjaxSearch();
         }
-        debugger;
-        let b = "05";
         axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=a0bab1433b22d4b59bf466484c131da6&language=en-US&region=US&
         sort_by=popularity.desc&include_adult=false&include_video=false&page=1&release_date.gte=${this.state.year.toString()}-06-01&release_date.lte=${this.state.year.toString()}-06-30&with_release_type=3`)
             .then(function (response) {
@@ -110,8 +107,9 @@ class App extends React.Component {
     //Hide movie info pop up when exit button is clicked
     hideMovieInformation(){
         this.setState({
-            selectedMovie: {},
-            currentMovieCredits:{},
+            selectedMovie: null,
+            castMembers:null,
+            currentCrew:null,
         });
     }
     fixed() {
@@ -204,6 +202,8 @@ class App extends React.Component {
     renderCurrentMovieModal(){
         // Selected Movie is not updated in state from OnMovieClick (first click only)
         // Second click sets the state. For now passing in currentMovie from OnClick;
+        let a = this.state.selectedMovie;
+        console.log(a);
         if(this.state.selectedMovie) {
             console.log("Returning Display Movie Information");
             return (

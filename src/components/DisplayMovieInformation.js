@@ -16,7 +16,6 @@ export default class DisplayMovieInformation extends React.Component {
                         <div className="poster"></div>
                         <div className="movieTitle">{currentMovie.title}</div>
                         <div className="overview">{currentMovie.overview}</div>
-                        <div className="popularity">Popularity</div>
                         <div className="exitButton">
                             <button className="button" onClick={this.props.hideMovieInformation}>
                             </button>
