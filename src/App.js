@@ -11,7 +11,6 @@ class App extends React.Component {
         super();
         this.prevMonth = this.prevMonth.bind(this);
         this.nextMonth = this.nextMonth.bind(this);
-        this.displayMonth = this.displayMonth.bind(this);
         this.getDay = this.getDay.bind(this);
         this.fixed = this.fixed.bind(this);
         this.generateDayNameDays = this.generateDayNameDays.bind(this);
@@ -21,11 +20,14 @@ class App extends React.Component {
         this.onMovieClick=this.onMovieClick.bind(this);
         this.hideMovieInformation=this.hideMovieInformation.bind(this);
         this.renderCurrentMovieModal=this.renderCurrentMovieModal.bind(this);
+        this.addZeroForProperAjaxSearch=this.addZeroForProperAjaxSearch.bind(this);
+
 
         this.state = {
             year: new Date().getFullYear(),
             monthName: new Date().getMonth(),
             monthNumber: new Date().getMonth(),
+            date:null,
             currentDay: null,
             numberOfDaysInMonth: null,
             counter: {
@@ -46,17 +48,11 @@ class App extends React.Component {
             lastDay: null,
             dayNameDays: this.generateDayNameDays(),
             movieData:[],
+            ajaxDataReceived: false,
         };
     }
 
     componentWillMount() {
-// Performing a GET request to grab initial movie data for the month
-        axios.get('https://api.themoviedb.org/3/discover/movie?api_key=a0bab1433b22d4b59bf466484c131da6&language=en-US&region=US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&release_date.gte=2017-05-01&release_date.lte=2017-05-31')
-            .then(function (response) {
-                this.setState({
-                    movieData: response.data.results
-                });
-            }.bind(this));
         let counterMonth = this.state.counter;
         let currentMonth = this.state.monthName;
         this.setState({
@@ -65,8 +61,32 @@ class App extends React.Component {
         });
         this.getDay();
         this.fixed();
+        //Set State in getday was not loading in time for the ajax call so had to move in date methods into here as well.
+        let year = this.state.year;
+        let month = this.state.monthNumber;
+        //Get first and last day of month
+        let initNumOfDaysInMonth = new Date(year, month + 1, 0).getDate();
+        //End of Get Day date methods
+        // Performing a GET request to grab initial movie data for the month
+        if(this.state.monthNumber.toString().length < 2){
+            this.addZeroForProperAjaxSearch();
+        }
+        debugger;
+        let b = "05";
+        axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=a0bab1433b22d4b59bf466484c131da6&language=en-US&region=US&
+        sort_by=popularity.desc&include_adult=false&include_video=false&page=1&release_date.gte=${this.state.year.toString()}-06-01&release_date.lte=${this.state.year.toString()}-06-30&with_release_type=3`)
+            .then(function (response) {
+                console.log(response.data.results);
+                this.setState({
+                    movieData: response.data.results
+                });
+            }.bind(this));
     }
-    //Pass in current movie that was clicked
+    addZeroForProperAjaxSearch(){
+        let zero = "0";
+        let monthNumber = this.state.monthNumber.toString();
+        return zero.concat(monthNumber);
+    }
     onMovieClick(movie) {
             //Get Movie ID
             console.log("onMovieClickgotcalled");
@@ -82,6 +102,7 @@ class App extends React.Component {
                         castMembers:castNames,
                         currentCrew:response.data.credits.crew[0].name,
                     });
+                    // this.renderCurrentMovieModal();
                 }.bind(this));
             // why undefined after setState ? console.log(this.state.currentMovie);
             // this keyword on axios call
@@ -139,42 +160,32 @@ class App extends React.Component {
     }
 
     prevMonth() {
+        let monthName = this.state.counter;
         let date = new Date(this.state.year,this.state.monthNumber);
         var prevMonth = date.setMonth(date.getMonth() - 1);
         var newPrevMonth = new Date(prevMonth);
-        // this.setState({
-        //     monthNumber: newPrevMonth,
-        // });
-        this.getDay();
+        let newPrevMonthNum = newPrevMonth.getMonth();
+        let initNumOfDaysInMonth = new Date(this.state.year, newPrevMonthNum + 1, 0).getDate();
+        this.setState({
+            monthNumber: newPrevMonthNum,
+            monthName: monthName[newPrevMonthNum],
+            numberOfDaysInCurrentMonth: initNumOfDaysInMonth,
+        });
     }
 
     nextMonth() {
-        let monthNameCounter = this.state.counter;
-        let monthNumber = this.state.monthNumber;
-        let newMonthNumber = monthNumber - 1;
-        if (newMonthNumber === -1) {
-            newMonthNumber = 11;
-            let nextYearIs = this.state.year - 1;
-            this.setState({
-                year: nextYearIs,
-            })
-        }
+        let monthName = this.state.counter;
+        let date = new Date(this.state.year,this.state.monthNumber);
+        var prevMonth = date.setMonth(date.getMonth() + 1);
+        var newNextMonth = new Date(prevMonth);
+        let newNextMonthNum = newNextMonth.getMonth();
+        let initNumOfDaysInMonth = new Date(this.state.year, newNextMonthNum + 1, 0).getDate();
         this.setState({
-            monthName: monthNameCounter[newMonthNumber],
-            monthNumber: newMonthNumber
-        });
-        this.getDay();
-    }
-
-    displayMonth() {
-        const counter = this.state.monthNumber;
-        const monthNameName = this.state.counter;
-        let monthNameIsNow = monthNameName[counter];
-        this.setState({
-            monthName: monthNameIsNow,
+            monthNumber: newNextMonthNum,
+            monthName: monthName[newNextMonthNum],
+            numberOfDaysInCurrentMonth: initNumOfDaysInMonth,
         });
     }
-
     getDay() {
         let year = this.state.year;
         let month = this.state.monthNumber;
@@ -187,11 +198,14 @@ class App extends React.Component {
             currentDay: day,
             firstDay: firstDay,
             lastDay: lastDay,
-            numberOfDaysInMonth: initNumOfDaysInMonth
+            numberOfDaysInMonth: initNumOfDaysInMonth,
         })
     }
     renderCurrentMovieModal(){
+        // Selected Movie is not updated in state from OnMovieClick (first click only)
+        // Second click sets the state. For now passing in currentMovie from OnClick;
         if(this.state.selectedMovie) {
+            console.log("Returning Display Movie Information");
             return (
                 <DisplayMovieInformation
                     selectedMovie={this.state.selectedMovie}
@@ -205,14 +219,13 @@ class App extends React.Component {
     render() {
         return (
             <div className="App">
-                {this.renderCurrentMovieModal}
+                {this.renderCurrentMovieModal()}
                 <SwitchMonthButtons
                     monthName={this.state.monthName}
                     monthNumber={this.state.count}
                     counterMonth={this.state.counter}
                     nextMonth={this.prevMonth}
                     prevMonth={this.nextMonth}
-                    displayMonth={this.displayMonth}
                 />
                 <RenderDaysInMonth
                     theCurrentYear={this.state.year}

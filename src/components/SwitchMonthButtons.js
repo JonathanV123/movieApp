@@ -16,13 +16,13 @@ export default class SwitchMonthButtons extends React.Component {
                         The biggest releases in film.
                     </div>
                 </div>
-                <button onClick={() => {this.props.prevMonth(); this.props.displayMonth();}}>
+                <button onClick={() => {this.props.nextMonth()}}>
                     Previous Month
                 </button>
                 <div className="currentlySelectedMonth">
                     {this.props.monthName}
                 </div>
-                <button onClick={() => {this.props.nextMonth(); this.props.displayMonth();}}>
+                <button onClick={() => {this.props.prevMonth()}}>
                     Next Month
                 </button>
             </div>
