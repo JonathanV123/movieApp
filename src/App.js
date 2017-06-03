@@ -214,30 +214,35 @@ class App extends React.Component {
                     currentMovieCrew={this.state.currentCrew}
                 />
             )
+        }else{
+            return(
+                <div className="calendarContainer">
+                    <SwitchMonthButtons
+                        monthName={this.state.monthName}
+                        monthNumber={this.state.count}
+                        counterMonth={this.state.counter}
+                        nextMonth={this.prevMonth}
+                        prevMonth={this.nextMonth}
+                    />
+                    <RenderDaysInMonth
+                        theCurrentYear={this.state.year}
+                        theCurrentMonth={this.state.monthNumber}
+                        firstDay={this.state.firstDay}
+                        lastDay={this.state.lastDay}
+                        currentDay={this.state.currentDay}
+                        numberOfDaysInMonth={this.state.numberOfDaysInMonth}
+                        dayNameDays={this.state.dayNameDays}
+                        movieData={this.state.movieData}
+                        onMovieClick={this.onMovieClick}
+                    />
+                </div>
+            )
         }
     }
     render() {
         return (
             <div className="App">
                 {this.renderCurrentMovieModal()}
-                <SwitchMonthButtons
-                    monthName={this.state.monthName}
-                    monthNumber={this.state.count}
-                    counterMonth={this.state.counter}
-                    nextMonth={this.prevMonth}
-                    prevMonth={this.nextMonth}
-                />
-                <RenderDaysInMonth
-                    theCurrentYear={this.state.year}
-                    theCurrentMonth={this.state.monthNumber}
-                    firstDay={this.state.firstDay}
-                    lastDay={this.state.lastDay}
-                    currentDay={this.state.currentDay}
-                    numberOfDaysInMonth={this.state.numberOfDaysInMonth}
-                    dayNameDays={this.state.dayNameDays}
-                    movieData={this.state.movieData}
-                    onMovieClick={this.onMovieClick}
-                />
             </div>
         );
     }

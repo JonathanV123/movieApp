@@ -6,27 +6,52 @@ body{
     padding:0;
     background-color: rgb(24, 24, 26);
 }
-.App{
+.App {
     text-align: center;
-    width:100%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-direction:column;
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
     background-color: rgb(24, 24, 26);
 }
-.buttonAndMonthNameContainer{
-    width:100%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
+
+.buttonAndMonthNameContainer {
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
 }
-.monthContainer{
-    width:100%;
-    display:flex;
-    justify-content:space-around;
-    flex-wrap:wrap;
+
+.monthContainer {
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+     display: flex;
+     -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
 }
 .individualDay{
     width: 140px;
@@ -40,12 +65,13 @@ body{
     background-size: 100% 100%;
     font-weight:bold;
     margin: 1.5% 0 1.5% 0;
+    cursor:pointer;
 }
-.collectionOfDays{
-    width:12%;
-    height:95%;
-    padding:0;
-    margin-left:2%;
+.collectionOfDays {
+    width: 12%;
+    height: 95%;
+    padding: 0;
+    margin: 1%;
 }
 .currentlySelectedMonth{
     width: 100px;
@@ -72,34 +98,41 @@ body{
     padding:5px;
 }
 .movieInfoContainer{
-    position:absolute;
     display:flex;
     width:100%;
-    height:100%;
-    background-color:pink;
     font-size:20px;
     flex-direction:column;
+    background-color: rgb(24, 24, 26);
+    z-index:1;
 }
 .movieInfo{
     width:100%;
-    height:100%;
 }
 .button{
     width:50px;
     height:50px;
 }
 .bgWrapper{
-    background: #eb01a5;
     content: '';
     left: 0;
     right: 0;
     width: 100%;
-    height: 100%;
+    height: 380px;
     z-index: -1;
-    /*filter: brightness(120%) grayscale(1);*/
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 10,0.6);
+
+}
+
+.movieTitle{
+    font-size:5em;
+    font-weight:bold;
+    color:white;
 }
 .poster{
     width:300px;
@@ -110,6 +143,10 @@ body{
     display:flex;
     justify-content: center;
     align-items: center;
+}
+.calendarContainer{
+    width:100%;
+    height:100%;
 }
 .monthButton{
     width:109px;
@@ -124,6 +161,12 @@ body{
     border-radius: 50%;
     margin-left: 1.5em;
 
+}
+.overview{
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .leftMonthButton:after {
     content: '';
@@ -165,6 +208,7 @@ body{
 }
 .leftMonthButton:hover,.rightMonthButton:hover{
     border: 0.5em solid #e74c3c;
+    cursor:pointer;
 }
 @media only screen and (max-device-width:992px){
     .individualDay{
@@ -198,6 +242,16 @@ body{
     .individualDay{
         width: 55px;
         height: 80px;
+    }
+    .dateOfDay{
+        font-size: 12px;
+        padding: 3px;
+    }
+}
+@media only screen and (max-device-width:350px){
+    .individualDay{
+        width: 52px;
+        height: 70px;
     }
     .dateOfDay{
         font-size: 12px;
