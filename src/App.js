@@ -87,17 +87,22 @@ class App extends React.Component {
     onMovieClick(movie) {
             //Get Movie ID
             console.log("onMovieClickgotcalled");
-            axios.get('https://api.themoviedb.org/3/movie/'+ movie.id +'?api_key=a0bab1433b22d4b59bf466484c131da6&&append_to_response=credits')
+            axios.get('https://api.themoviedb.org/3/movie/'+ movie.id +'?api_key=a0bab1433b22d4b59bf466484c131da6&&append_to_response=credits,videos')
                 .then(function (response) {
                     console.log("In callback now");
                     let castNames = response.data.credits.cast.map((castMember)=>{
                         return castMember.name
                     });
+                    let trailerLink = response.data.videos.results.map((linkID)=>{
+                        return linkID.key
+                    });
+                    let officialTrailerKey = trailerLink.pop();
                     console.log(castNames);
                     this.setState({
                         selectedMovie: movie,
                         castMembers:castNames,
                         currentCrew:response.data.credits.crew[0].name,
+                        trailerLink:officialTrailerKey,
                     });
                     // this.renderCurrentMovieModal();
                 }.bind(this));
@@ -110,6 +115,7 @@ class App extends React.Component {
             selectedMovie: null,
             castMembers:null,
             currentCrew:null,
+            trailerLink:null,
         });
     }
     fixed() {
@@ -212,6 +218,7 @@ class App extends React.Component {
                     hideMovieInformation={this.hideMovieInformation}
                     currentMovieCast={this.state.castMembers}
                     currentMovieCrew={this.state.currentCrew}
+                    trailerLink={this.state.trailerLink}
                 />
             )
         }else{

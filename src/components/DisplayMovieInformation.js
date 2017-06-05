@@ -1,10 +1,14 @@
 import React from 'react';
+import YouTube from 'react-youtube'
+
 
 
 export default class DisplayMovieInformation extends React.Component {
     constructor() {
         super();
         this.displayMovieInformation.bind(this);
+        this.renderYoutube.bind(this);
+
     }
 
     renderCast() {
@@ -15,6 +19,22 @@ export default class DisplayMovieInformation extends React.Component {
                 </div>
             )
         })
+    }
+    renderYoutube(){
+            const opts = {
+                height: '390',
+                width: '640',
+                playerVars: { // https://developers.google.com/youtube/player_parameters
+                    autoplay: 0
+                }
+            };
+            return (
+                <YouTube
+                    videoId={this.props.trailerLink}
+                    opts={opts}
+                    onReady={this._onReady}
+                />
+            );
     }
     displayMovieInformation(currentMovie) {
         console.log("displayingMovieInfo");
@@ -37,6 +57,7 @@ export default class DisplayMovieInformation extends React.Component {
                             {this.renderCast()}
                         </div>
                     </div>
+                    {this.renderYoutube()}
                     <div className="exitButton">
                         <button className="button" onClick={this.props.hideMovieInformation}>
                         </button>
