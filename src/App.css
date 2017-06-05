@@ -116,7 +116,21 @@ body{
     z-index:1;
 }
 .movieDescPosterContainer{
+    box-sizing:border-box;
+    content: '';
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: -1;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
     display:flex;
+    justify-content:center;
+    align-items:center;
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 10,0.7);
+    border-bottom:4px solid white;
+    border-top:4px solid white;
 }
 .movieInfo{
     width:100%;
@@ -124,6 +138,10 @@ body{
 .button{
     width:50px;
     height:50px;
+    position:absolute;
+    top:0;
+    right:0;
+    color:black;
 }
 .bgWrapper{
     content: '';
@@ -139,8 +157,6 @@ body{
     justify-content:center;
     align-items:center;
     box-shadow: inset 0 0 0 1000px rgba(0, 0, 10,0.6);
-    border: 7px solid rgb(252, 67, 10);
-
 }
 
 .movieTitle{
@@ -154,21 +170,27 @@ body{
     height:450px;
 }
 .posterContainer{
-    width:30%;
     margin:2%;
 }
 .actor{
-    margin:2%;
+    text-align:left;
+    box-sizing:border-box;
+    margin-right:1.5%;
 }
 .castAndCrewContainer{
     width:100%;
 }
+.cast{
+    text-align:left;
+}
 .descriptionContainer{
     display: flex;
-    width: 70%;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    margin:2%;
+}
+#directedBy{
+    display:flex;
 }
 .buttonMonthContainer{
     display:flex;
@@ -194,10 +216,16 @@ body{
 
 }
 .overview{
-    width: 100%;
     display: flex;
     flex-direction:column;
-    margin:2%;
+    text-align:left;
+    margin: 0 0 0 0;
+}
+#starring{
+    display:flex;
+}
+.director{
+    text-align:left;
 }
 .leftMonthButton:after {
     content: '';

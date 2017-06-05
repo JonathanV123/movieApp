@@ -87,7 +87,7 @@ class App extends React.Component {
     onMovieClick(movie) {
             //Get Movie ID
             console.log("onMovieClickgotcalled");
-            axios.get('https://api.themoviedb.org/3/movie/'+ movie.id +'?api_key=a0bab1433b22d4b59bf466484c131da6&&append_to_response=credits,videos,reviews')
+            axios.get('https://api.themoviedb.org/3/movie/'+ movie.id +'?api_key=a0bab1433b22d4b59bf466484c131da6&&append_to_response=credits,videos')
                 .then(function (response) {
                     console.log(response);
                     console.log("In callback now");

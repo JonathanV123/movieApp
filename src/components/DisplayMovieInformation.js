@@ -41,13 +41,24 @@ export default class DisplayMovieInformation extends React.Component {
         console.log("displayingMovieInfo");
         return (
             <div key={Math.random()} className="movieInfo">
-                <div className="bgWrapper"
-                     style={{backgroundImage: "url(" + "https://image.tmdb.org/t/p/w1400_and_h450_bestv2" + currentMovie.backdrop_path + ")"}}
-                     key={Math.random()}>
-                    <div
-                        className="movieTitle">{currentMovie.title + " " + "(" + currentMovie.release_date.slice(0, 4) + ")"}</div>
+                {/*<div className="bgWrapper"*/}
+                     {/*style={{backgroundImage: "url(" + "https://image.tmdb.org/t/p/w1400_and_h450_bestv2" + currentMovie.backdrop_path + ")"}}*/}
+                     {/*key={Math.random()}>*/}
+                    {/*<div*/}
+                        {/*className="movieTitle">{currentMovie.title + " " + "(" + currentMovie.release_date.slice(0, 4) + ")"}*/}
+                    {/*</div>*/}
+
+                {/*</div>*/}
+                <div className="testDiv">
+                    <span>
+                        <h1>Movie Release Calendar</h1>
+                    </span>
+                    <span>
+                        <h2>Movies Biggest Releases</h2>
+                    </span>
                 </div>
-                <div className="movieDescPosterContainer">
+                <div className="movieDescPosterContainer" style={{backgroundImage: "url(" + "https://image.tmdb.org/t/p/w1400_and_h450_bestv2" + currentMovie.backdrop_path + ")"}}
+                     key={Math.random()}>
                     <div className="posterContainer">
                         <div className="poster"
                              style={{backgroundImage: "url(" + "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + currentMovie.poster_path + ")"}}
@@ -55,6 +66,7 @@ export default class DisplayMovieInformation extends React.Component {
                         </div>
                     </div>
                     <div className="descriptionContainer">
+                        <h1>{currentMovie.title + " " + "(" + currentMovie.release_date.slice(0, 4) + ")"}</h1>
                         <h1>Overview:</h1>
                         <p key={currentMovie.id}className="overview">
                             {currentMovie.overview}
@@ -70,7 +82,7 @@ export default class DisplayMovieInformation extends React.Component {
                                     Directed By:
                                 </h2>
                             <div className="director">
-                                {this.props.currentMovieCrew}
+                                {this.props.currentMovieCrew[0]}
                             </div>
                         </div>
                     </div>
@@ -81,6 +93,7 @@ export default class DisplayMovieInformation extends React.Component {
                 </div>
                 <div className="exitButton">
                     <button className="button" onClick={this.props.hideMovieInformation}>
+                        Exit
                     </button>
                 </div>
             </div>
