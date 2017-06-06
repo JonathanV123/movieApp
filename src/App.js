@@ -6,6 +6,20 @@ import axios from 'axios';
 import './App.css';
 
 const DAYS_OF_WEEK = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
+const SHORT_MONTH_NAMES ={
+        0: "Jan",
+        1: "Feb",
+        2: "Mar",
+        3: "Apr",
+        4: "May",
+        5: "June",
+        6: "Jul",
+        7: "Aug",
+        8: "Sept",
+        9: "Oct",
+        10: "Nov",
+        11: "Dec"
+};
 class App extends React.Component {
     constructor() {
         super();
@@ -27,30 +41,15 @@ class App extends React.Component {
             year: new Date().getFullYear(),
             monthName: new Date().getMonth(),
             monthNumber: new Date().getMonth(),
-            counter: {
-                0: "Jan",
-                1: "Feb",
-                2: "Mar",
-                3: "Apr",
-                4: "May",
-                5: "June",
-                6: "Jul",
-                7: "Aug",
-                8: "Sept",
-                9: "Oct",
-                10: "Nov",
-                11: "Dec"
-            },
             dayNameDays: this.generateDayNameDays(),
             movieData: [],
         };
     }
 
     componentWillMount() {
-        let counterMonth = this.state.counter;
         let currentMonth = this.state.monthName;
         this.setState({
-            monthName: counterMonth[currentMonth],
+            monthName: SHORT_MONTH_NAMES[currentMonth],
             monthNumber: currentMonth
         });
         this.getDay();
@@ -180,7 +179,7 @@ class App extends React.Component {
     }
 
     prevMonth() {
-        let monthName = this.state.counter;
+        let monthName = SHORT_MONTH_NAMES;
         let year = this.state.year;
         let date = new Date(this.state.year, this.state.monthNumber);
         var prevMonth = date.setMonth(date.getMonth() - 1);
@@ -214,7 +213,7 @@ class App extends React.Component {
     }
 
     nextMonth() {
-        let monthName = this.state.counter;
+        let monthName = SHORT_MONTH_NAMES;
         let year = this.state.year;
         let date = new Date(this.state.year, this.state.monthNumber);
         var nextMonth = date.setMonth(date.getMonth() + 1);
@@ -272,8 +271,6 @@ class App extends React.Component {
                 <div className="calendarContainer">
                     <SwitchMonthButtons
                         monthName={this.state.monthName}
-                        monthNumber={this.state.count}
-                        counterMonth={this.state.counter}
                         nextMonth={this.prevMonth}
                         prevMonth={this.nextMonth}
                     />
