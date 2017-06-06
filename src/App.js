@@ -29,7 +29,6 @@ class App extends React.Component {
             monthNumber: new Date().getMonth(),
             date:null,
             currentDay: null,
-            numberOfDaysInMonth: null,
             counter: {
                 0: "Jan",
                 1: "Feb",
@@ -182,40 +181,54 @@ class App extends React.Component {
         let newPrevMonthNum = newPrevMonth.getMonth();
         let initNumOfDaysInMonth = new Date(this.state.year, newPrevMonthNum + 1, 0).getDate();
         this.setState({
-            monthNumber: newPrevMonthNum,
-            monthName: monthName[newPrevMonthNum],
-            numberOfDaysInCurrentMonth: initNumOfDaysInMonth,
-            movieData:[],
-        });
+                monthNumber: newPrevMonthNum,
+                monthName: monthName[newPrevMonthNum],
+                numberOfDaysInCurrentMonth: initNumOfDaysInMonth,
+                movieData:[],
+            },
+            function () {
+                this.generateDayNameDays();
+                this.getDay();
+                this.fixed();
+            }
+        );
         axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=a0bab1433b22d4b59bf466484c131da6&language=en-US&region=US&
-        sort_by=popularity.desc&include_adult=false&include_video=false&page=1&release_date.gte=${this.state.year.toString()}-${this.state.monthNumber + 1}-01&release_date.lte=${this.state.year.toString()}-${this.state.monthNumber + 1}-${initNumOfDaysInMonth}&with_release_type=3`)
+        sort_by=popularity.desc&include_adult=false&include_video=false&page=1&release_date.gte=${this.state.year.toString()}-${newPrevMonthNum + 1}-01&release_date.lte=${this.state.year.toString()}-${newPrevMonthNum + 1}-${initNumOfDaysInMonth}&with_release_type=3`)
             .then(function (response) {
                 console.log(response.data.results);
                 this.setState({
                     movieData: response.data.results
                 });
             }.bind(this));
-        this.generateDayNameDays();
-        this.getDay();
-        this.fixed();
     }
 
     nextMonth() {
         let monthName = this.state.counter;
         let date = new Date(this.state.year,this.state.monthNumber);
-        var prevMonth = date.setMonth(date.getMonth() + 1);
-        var newNextMonth = new Date(prevMonth);
+        var nextMonth = date.setMonth(date.getMonth() + 1);
+        var newNextMonth = new Date(nextMonth);
         let newNextMonthNum = newNextMonth.getMonth();
         let initNumOfDaysInMonth = new Date(this.state.year, newNextMonthNum + 1, 0).getDate();
         this.setState({
-            monthNumber: newNextMonthNum,
-            monthName: monthName[newNextMonthNum],
-            numberOfDaysInCurrentMonth: initNumOfDaysInMonth,
-            movieData:[],
-        });
-        this.generateDayNameDays();
-        this.getDay();
-        this.fixed();
+                monthNumber: newNextMonthNum,
+                monthName: monthName[newNextMonthNum],
+                numberOfDaysInCurrentMonth: initNumOfDaysInMonth,
+                movieData:[],
+            },
+            function () {
+                this.generateDayNameDays();
+                this.getDay();
+                this.fixed();
+            }
+        );
+        axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=a0bab1433b22d4b59bf466484c131da6&language=en-US&region=US&
+        sort_by=popularity.desc&include_adult=false&include_video=false&page=1&release_date.gte=${this.state.year.toString()}-${newNextMonthNum + 1}-01&release_date.lte=${this.state.year.toString()}-${newNextMonthNum + 1}-${initNumOfDaysInMonth}&with_release_type=3`)
+            .then(function (response) {
+                console.log(response.data.results);
+                this.setState({
+                    movieData: response.data.results
+                });
+            }.bind(this));
     }
     getDay() {
         let year = this.state.year;
@@ -229,7 +242,7 @@ class App extends React.Component {
             currentDay: day,
             firstDay: firstDay,
             lastDay: lastDay,
-            numberOfDaysInMonth: initNumOfDaysInMonth,
+            numberOfDaysInCurrentMonth:initNumOfDaysInMonth,
         })
     }
     renderCurrentMovieModal(){
@@ -264,7 +277,7 @@ class App extends React.Component {
                         firstDay={this.state.firstDay}
                         lastDay={this.state.lastDay}
                         currentDay={this.state.currentDay}
-                        numberOfDaysInMonth={this.state.numberOfDaysInMonth}
+                        numberOfDaysInMonth={this.state.numberOfDaysInCurrentMonth}
                         dayNameDays={this.state.dayNameDays}
                         movieData={this.state.movieData}
                         onMovieClick={this.onMovieClick}

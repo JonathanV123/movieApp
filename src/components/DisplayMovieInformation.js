@@ -23,7 +23,7 @@ export default class DisplayMovieInformation extends React.Component {
     renderYoutube() {
         const opts = {
             height: '300px',
-            width: '60%',
+            width: '55%',
             playerVars: { // https://developers.google.com/youtube/player_parameters
                 autoplay: 0
             }
