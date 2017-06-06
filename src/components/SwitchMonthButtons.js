@@ -1,12 +1,12 @@
-
 import React from 'react';
 
 export default class SwitchMonthButtons extends React.Component {
     constructor() {
         super();
     }
-    render(){
-        return(
+
+    render() {
+        return (
             <div className="buttonAndMonthNameContainer">
                 <div className="titleContainer">
                     <div className="title">
@@ -17,12 +17,16 @@ export default class SwitchMonthButtons extends React.Component {
                     </div>
                 </div>
                 <div className="buttonMonthContainer">
-                    <button className = "leftMonthButton" onClick={() => {this.props.nextMonth()}}>
+                    <button className="leftMonthButton" onClick={() => {
+                        this.props.nextMonth()
+                    }}>
                     </button>
                     <div className="currentlySelectedMonth">
                         {this.props.monthName}
                     </div>
-                    <button className = "rightMonthButton" onClick={() => {this.props.prevMonth()}}>
+                    <button className="rightMonthButton" onClick={() => {
+                        this.props.prevMonth()
+                    }}>
                     </button>
                 </div>
             </div>

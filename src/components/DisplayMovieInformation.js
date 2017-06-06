@@ -15,7 +15,7 @@ export default class DisplayMovieInformation extends React.Component {
             return (
                 <span key={Math.random()} className="actor">
                         {castMember},
-                    </span>
+                </span>
             )
         })
     }
@@ -24,7 +24,7 @@ export default class DisplayMovieInformation extends React.Component {
         const opts = {
             height: '300px',
             width: '55%',
-            playerVars: { // https://developers.google.com/youtube/player_parameters
+            playerVars: {
                 autoplay: 0
             }
         };
@@ -32,13 +32,11 @@ export default class DisplayMovieInformation extends React.Component {
             <YouTube
                 videoId={this.props.trailerLink}
                 opts={opts}
-                onReady={this._onReady}
             />
         );
     }
 
     displayMovieInformation(currentMovie) {
-        console.log("displayingMovieInfo");
         return (
             <div key={Math.random()} className="movieInfo">
                 <div className="testDiv">
@@ -49,7 +47,8 @@ export default class DisplayMovieInformation extends React.Component {
                         <h2>Movies Biggest Releases</h2>
                     </span>
                 </div>
-                <div className="movieDescPosterContainer" style={{backgroundImage: "url(" + "https://image.tmdb.org/t/p/w1400_and_h450_bestv2" + currentMovie.backdrop_path + ")"}}
+                <div className="movieDescPosterContainer"
+                     style={{backgroundImage: "url(" + "https://image.tmdb.org/t/p/w1400_and_h450_bestv2" + currentMovie.backdrop_path + ")"}}
                      key={Math.random()}>
                     <div className="posterContainer">
                         <div className="poster"
@@ -58,21 +57,25 @@ export default class DisplayMovieInformation extends React.Component {
                         </div>
                     </div>
                     <div className="descriptionContainer">
-                        <h1>{currentMovie.title + " " + "(" + currentMovie.release_date.slice(0, 4) + ")"}</h1>
-                        <h1>Overview:</h1>
-                        <p key={currentMovie.id}className="overview">
+                        <h1>
+                            {currentMovie.title + " " + "(" + currentMovie.release_date.slice(0, 4) + ")"}
+                        </h1>
+                        <h1>
+                            Overview:
+                        </h1>
+                        <p key={currentMovie.id} className="overview">
                             {currentMovie.overview}
                         </p>
                         <div className="castAndCrewContainer">
-                                <h2 id="starring">
-                                    Featured Cast:
-                                </h2>
+                            <h2 id="starring">
+                                Featured Cast:
+                            </h2>
                             <div className="cast">
                                 {this.renderCast()}
                             </div>
                             <h2 id="directedBy">
-                                    Directed By:
-                                </h2>
+                                Directed By:
+                            </h2>
                             <div className="director">
                                 {this.props.currentMovieCrew[0]}
                             </div>
@@ -80,7 +83,9 @@ export default class DisplayMovieInformation extends React.Component {
                     </div>
                 </div>
                 <div className="youtubeContainer">
-                    <h2>Media:</h2>
+                    <h2>
+                        Media:
+                    </h2>
                     {this.renderYoutube()}
                 </div>
                 <div className="exitButton">

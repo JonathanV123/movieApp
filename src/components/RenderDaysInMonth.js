@@ -6,10 +6,11 @@ export default class RenderDaysInMonth extends React.Component {
         super();
         this.renderDaysOfWeek = this.renderDaysOfWeek.bind(this);
     }
+
     render() {
         return (
             <div className="monthContainer">
-                    {this.renderDaysOfWeek()}
+                {this.renderDaysOfWeek()}
             </div>
         )
     }
@@ -24,7 +25,7 @@ export default class RenderDaysInMonth extends React.Component {
                     key={dayName}
                     movieData={this.props.movieData}
                     onMovieClick={this.props.onMovieClick}
-            />);
+                />);
         }
         return dayOfWeekComponents;
     }

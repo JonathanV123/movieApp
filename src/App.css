@@ -1,11 +1,13 @@
-*{
-    color:white;
+* {
+    color: white;
 }
-body{
-    margin:0;
-    padding:0;
+
+body {
+    margin: 0;
+    padding: 0;
     background-color: rgb(24, 24, 26);
 }
+
 .App {
     text-align: center;
     width: 100%;
@@ -53,23 +55,25 @@ body{
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
 }
-.individualDay{
+
+.individualDay {
     width: 140px;
     height: 193px;
     border: 1px solid black;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    color:white;
-    background-color:#303030;
-    align-items:flex-start;
-    background-repeat:no-repeat;
+    color: white;
+    background-color: #303030;
+    align-items: flex-start;
+    background-repeat: no-repeat;
     background-size: 100% 100%;
-    font-weight:bold;
+    font-weight: bold;
     font-family: 'Titillium Web', sans-serif;
     margin: 1.5% 0 1.5% 0;
-    cursor:pointer;
+    cursor: pointer;
 }
+
 .collectionOfDays {
     width: 14%;
     height: 95%;
@@ -85,7 +89,8 @@ body{
     justify-content: center;
     flex-direction: column;
 }
-.currentlySelectedMonth{
+
+.currentlySelectedMonth {
     width: 100px;
     height: 45px;
     display: -webkit-box;
@@ -100,42 +105,49 @@ body{
     font-family: 'Titillium Web', sans-serif;
     font-size: 2em;
 }
-.youtubeContainer{
-    margin-bottom:50px;
+
+.youtubeContainer {
+    margin-bottom: 50px;
 }
-.title{
-    font-size:3em;
-    color:white;
+
+.title {
+    font-size: 3em;
+    color: white;
     font-family: 'Titillium Web', sans-serif;
 }
-.titleDesc{
-    font-size:1.5em;
-    color:white;
+
+.titleDesc {
+    font-size: 1.5em;
+    color: white;
     font-family: 'Libre Franklin', sans-serif;
 }
-.dayOfWeek{
-    color:white;
+
+.dayOfWeek {
+    color: white;
 }
-.dateOfDay{
-    color:white;
-    font-size:25px;
+
+.dateOfDay {
+    color: white;
+    font-size: 25px;
     font-family: 'Titillium Web', sans-serif;
-    font-weight:bold;
-    padding:5px;
+    font-weight: bold;
+    padding: 5px;
 }
-.movieInfoContainer{
+
+.movieInfoContainer {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    width:100%;
-    font-size:20px;
+    width: 100%;
+    font-size: 20px;
     font-family: 'Libre Franklin', sans-serif;
-    flex-direction:column;
+    flex-direction: column;
     background-color: rgb(24, 24, 26);
-    z-index:1;
+    z-index: 1;
 }
-.movieDescPosterContainer{
-    box-sizing:border-box;
+
+.movieDescPosterContainer {
+    box-sizing: border-box;
     content: '';
     left: 0;
     right: 0;
@@ -153,26 +165,29 @@ body{
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
-    box-shadow: inset 0 0 0 1000px rgba(0, 0, 10,0.7);
-    border-bottom:4px solid white;
-    border-top:4px solid white;
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 10, 0.7);
+    border-bottom: 4px solid white;
+    border-top: 4px solid white;
 }
-.movieInfo{
-    width:100%;
+
+.movieInfo {
+    width: 100%;
 }
-.button{
-    height:50px;
-    width:75px;
+
+.button {
+    height: 50px;
+    width: 75px;
     position: absolute;
     top: 0px;
     right: 0px;
     border-radius: 4px;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-    background-color:#fc430a;
-    border-color:white;
+    background-color: #fc430a;
+    border-color: white;
     font-family: 'Titillium Web', sans-serif;
 }
-.bgWrapper{
+
+.bgWrapper {
     content: '';
     left: 0;
     right: 0;
@@ -191,47 +206,55 @@ body{
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
-    box-shadow: inset 0 0 0 1000px rgba(0, 0, 10,0.6);
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 10, 0.6);
 }
 
-.movieTitle{
-    font-size:5em;
+.movieTitle {
+    font-size: 5em;
     font-family: 'Titillium Web', sans-serif;
-    font-weight:bold;
-    color:white;
+    font-weight: bold;
+    color: white;
 }
-.poster{
-    width:300px;
-    height:450px;
+
+.poster {
+    width: 300px;
+    height: 450px;
 }
-.posterContainer{
-    margin:2%;
+
+.posterContainer {
+    margin: 2%;
 }
-.actor{
-    text-align:left;
-    box-sizing:border-box;
-    margin-right:1.5%;
+
+.actor {
+    text-align: left;
+    box-sizing: border-box;
+    margin-right: 1.5%;
 }
-.castAndCrewContainer{
-    width:100%;
+
+.castAndCrewContainer {
+    width: 100%;
 }
-.cast{
-    text-align:left;
+
+.cast {
+    text-align: left;
 }
-.descriptionContainer{
+
+.descriptionContainer {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin:2%;
+    margin: 2%;
 }
-#directedBy{
+
+#directedBy {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
 }
-.buttonMonthContainer{
+
+.buttonMonthContainer {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -242,15 +265,18 @@ body{
     -ms-flex-pack: center;
     justify-content: center;
 }
-.calendarContainer{
-    width:100%;
-    height:100%;
+
+.calendarContainer {
+    width: 100%;
+    height: 100%;
 }
-.monthButton{
-    width:109px;
-    height:45px;
+
+.monthButton {
+    width: 109px;
+    height: 45px;
 }
-.leftMonthButton{
+
+.leftMonthButton {
     display: inline-block;
     text-align: center;
     width: 4em;
@@ -260,21 +286,25 @@ body{
     margin-left: 1.5em;
 
 }
-.overview{
+
+.overview {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    text-align:left;
+    text-align: left;
     margin: 0 0 0 0;
 }
-#starring{
+
+#starring {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
 }
-.director{
-    text-align:left;
+
+.director {
+    text-align: left;
 }
+
 .leftMonthButton:after {
     content: '';
     display: inline-block;
@@ -289,7 +319,8 @@ body{
     -ms-transform: rotate(-135deg);
     transform: rotate(-135deg);
 }
-.rightMonthButton{
+
+.rightMonthButton {
     display: inline-block;
     text-align: center;
     width: 4em;
@@ -299,6 +330,7 @@ body{
     margin-right: 1.5em;
 
 }
+
 .rightMonthButton:after {
     content: '';
     display: inline-block;
@@ -313,25 +345,30 @@ body{
     -ms-transform: rotate(-135deg);
     transform: rotate(45deg);
 }
-.leftMonthButton:hover,.rightMonthButton:hover{
+
+.leftMonthButton:hover, .rightMonthButton:hover {
     border: 0.5em solid #e74c3c;
-    cursor:pointer;
+    cursor: pointer;
 }
-@media only screen and (max-device-width:992px){
-    .individualDay{
+
+@media only screen and (max-device-width: 992px) {
+    .individualDay {
         width: 120px;
         height: 160px;
     }
 }
-@media only screen and (max-device-width:792px){
-    .individualDay{
+
+@media only screen and (max-device-width: 792px) {
+    .individualDay {
         width: 105px;
         height: 150px;
     }
-    .movieDescPosterContainer{
-        flex-direction:column;
+
+    .movieDescPosterContainer {
+        flex-direction: column;
     }
-    .button{
+
+    .button {
         position: fixed;
         bottom: 0px;
         margin-right: auto;
@@ -340,62 +377,73 @@ body{
         right: 0px;
         border-radius: 4px;
         text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-        background-color:#fc430a;
-        border-color:white;
+        background-color: #fc430a;
+        border-color: white;
         font-family: 'Titillium Web', sans-serif;
-        top:initial;
+        top: initial;
     }
 }
-@media only screen and (max-device-width:704px){
-    .individualDay{
+
+@media only screen and (max-device-width: 704px) {
+    .individualDay {
         width: 80px;
         height: 120px;
     }
 }
-@media only screen and (max-device-width:584px){
-    .individualDay{
+
+@media only screen and (max-device-width: 584px) {
+    .individualDay {
         width: 60px;
         height: 85px;
     }
-    .dateOfDay{
+
+    .dateOfDay {
         font-size: 12px;
         padding: 3px;
     }
 }
-@media only screen and (max-device-width:442px){
-    .individualDay{
+
+@media only screen and (max-device-width: 442px) {
+    .individualDay {
         width: 50px;
         height: 75px;
     }
-    .dateOfDay{
+
+    .dateOfDay {
         font-size: 12px;
         padding: 3px;
     }
 }
-@media only screen and (max-device-width:390px){
-    .individualDay{
+
+@media only screen and (max-device-width: 390px) {
+    .individualDay {
         width: 52px;
         height: 70px;
     }
-    .dateOfDay{
+
+    .dateOfDay {
         font-size: 12px;
         padding: 3px;
     }
 }
-@media only screen and (max-device-width:355px){
-    .individualDay{
+
+@media only screen and (max-device-width: 355px) {
+    .individualDay {
         width: 45px;
     }
-    .dateOfDay{
+
+    .dateOfDay {
         font-size: 12px;
         padding: 3px;
     }
 }
-@media only screen and (max-device-width:325px){
-    .individualDay{
+
+@media only screen and (max-device-width: 325px) {
+    .individualDay {
         width: 40px;
     }
-    .dateOfDay{
+
+    .dateOfDay {
         font-size: 12px;
         padding: 3px;
     }
