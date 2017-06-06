@@ -86,13 +86,16 @@ body{
     font-family: 'Titillium Web', sans-serif;
     font-size: 2em;
 }
+.youtubeContainer{
+    margin-bottom:50px;
+}
 .title{
-    font-size:5em;
+    font-size:3em;
     color:white;
     font-family: 'Titillium Web', sans-serif;
 }
 .titleDesc{
-    font-size:2em;
+    font-size:1.5em;
     color:white;
     font-family: 'Libre Franklin', sans-serif;
 }
@@ -136,12 +139,16 @@ body{
     width:100%;
 }
 .button{
-    width:50px;
     height:50px;
-    position:absolute;
-    top:0;
-    right:0;
-    color:black;
+    width:75px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    border-radius: 4px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    background-color:#fc430a;
+    border-color:white;
+    font-family: 'Titillium Web', sans-serif;
 }
 .bgWrapper{
     content: '';
@@ -279,6 +286,23 @@ body{
     .individualDay{
         width: 105px;
         height: 150px;
+    }
+    .movieDescPosterContainer{
+        flex-direction:column;
+    }
+    .button{
+        position: fixed;
+        bottom: 0px;
+        margin-right: auto;
+        margin-left: auto;
+        left: 0px;
+        right: 0px;
+        border-radius: 4px;
+        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+        background-color:#fc430a;
+        border-color:white;
+        font-family: 'Titillium Web', sans-serif;
+        top:initial;
     }
 }
 @media only screen and (max-device-width:704px){

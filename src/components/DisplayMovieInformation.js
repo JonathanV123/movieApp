@@ -14,7 +14,7 @@ export default class DisplayMovieInformation extends React.Component {
         return this.props.currentMovieCast.slice(0, 4).map((castMember, index) => {
             return (
                 <span key={Math.random()} className="actor">
-                        {castMember}
+                        {castMember},
                     </span>
             )
         })
@@ -22,8 +22,8 @@ export default class DisplayMovieInformation extends React.Component {
 
     renderYoutube() {
         const opts = {
-            height: '390',
-            width: '640',
+            height: '300px',
+            width: '60%',
             playerVars: { // https://developers.google.com/youtube/player_parameters
                 autoplay: 0
             }
@@ -41,14 +41,6 @@ export default class DisplayMovieInformation extends React.Component {
         console.log("displayingMovieInfo");
         return (
             <div key={Math.random()} className="movieInfo">
-                {/*<div className="bgWrapper"*/}
-                     {/*style={{backgroundImage: "url(" + "https://image.tmdb.org/t/p/w1400_and_h450_bestv2" + currentMovie.backdrop_path + ")"}}*/}
-                     {/*key={Math.random()}>*/}
-                    {/*<div*/}
-                        {/*className="movieTitle">{currentMovie.title + " " + "(" + currentMovie.release_date.slice(0, 4) + ")"}*/}
-                    {/*</div>*/}
-
-                {/*</div>*/}
                 <div className="testDiv">
                     <span>
                         <h1>Movie Release Calendar</h1>
@@ -93,7 +85,7 @@ export default class DisplayMovieInformation extends React.Component {
                 </div>
                 <div className="exitButton">
                     <button className="button" onClick={this.props.hideMovieInformation}>
-                        Exit
+                        Back to Calendar
                     </button>
                 </div>
             </div>
