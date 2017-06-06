@@ -12,7 +12,7 @@ class App extends React.Component {
         this.prevMonth = this.prevMonth.bind(this);
         this.nextMonth = this.nextMonth.bind(this);
         this.getDay = this.getDay.bind(this);
-        this.fixed = this.fixed.bind(this);
+        this.addDaysToArrayCollection = this.addDaysToArrayCollection.bind(this);
         this.generateDayNameDays = this.generateDayNameDays.bind(this);
         this.getDayName = this.getDayName.bind(this);
         this.getDaysOfMonthV2 = this.getDaysOfMonthV2.bind(this);
@@ -54,7 +54,7 @@ class App extends React.Component {
             monthNumber: currentMonth
         });
         this.getDay();
-        this.fixed();
+        this.addDaysToArrayCollection();
         //Set State in getday was not loading in time for the ajax call so had to move in date methods into here as well.
         let year = this.state.year;
         let month = this.state.monthNumber;
@@ -120,7 +120,7 @@ class App extends React.Component {
         });
     }
 
-    fixed() {
+    addDaysToArrayCollection() {
         //DayNameDays returns an object keyed by day name. Each day name has an empty array
         var dayNameDays = this.generateDayNameDays();
         //Days of month returns each day in current month
@@ -201,7 +201,7 @@ class App extends React.Component {
             function () {
                 this.generateDayNameDays();
                 this.getDay();
-                this.fixed();
+                this.addDaysToArrayCollection();
             }
         );
         axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=a0bab1433b22d4b59bf466484c131da6&language=en-US&region=US&
@@ -235,7 +235,7 @@ class App extends React.Component {
             function () {
                 this.generateDayNameDays();
                 this.getDay();
-                this.fixed();
+                this.addDaysToArrayCollection();
             }
         );
         axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=a0bab1433b22d4b59bf466484c131da6&language=en-US&region=US&
