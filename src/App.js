@@ -175,11 +175,17 @@ class App extends React.Component {
 
     prevMonth() {
         let monthName = this.state.counter;
+        let year = this.state.year;
         let date = new Date(this.state.year,this.state.monthNumber);
         var prevMonth = date.setMonth(date.getMonth() - 1);
         var newPrevMonth = new Date(prevMonth);
         let newPrevMonthNum = newPrevMonth.getMonth();
         let initNumOfDaysInMonth = new Date(this.state.year, newPrevMonthNum + 1, 0).getDate();
+        if(this.state.monthNumber === 0){
+            this.setState({
+                year: year -1
+            })
+        }
         this.setState({
                 monthNumber: newPrevMonthNum,
                 monthName: monthName[newPrevMonthNum],
@@ -204,11 +210,17 @@ class App extends React.Component {
 
     nextMonth() {
         let monthName = this.state.counter;
+        let year = this.state.year;
         let date = new Date(this.state.year,this.state.monthNumber);
         var nextMonth = date.setMonth(date.getMonth() + 1);
         var newNextMonth = new Date(nextMonth);
         let newNextMonthNum = newNextMonth.getMonth();
         let initNumOfDaysInMonth = new Date(this.state.year, newNextMonthNum + 1, 0).getDate();
+        if(this.state.monthNumber === 11){
+            this.setState({
+                year: year + 1,
+            })
+        }
         this.setState({
                 monthNumber: newNextMonthNum,
                 monthName: monthName[newNextMonthNum],
@@ -248,8 +260,6 @@ class App extends React.Component {
     renderCurrentMovieModal(){
         // Selected Movie is not updated in state from OnMovieClick (first click only)
         // Second click sets the state. For now passing in currentMovie from OnClick;
-        let a = this.state.selectedMovie;
-        console.log(a);
         if(this.state.selectedMovie) {
             console.log("Returning Display Movie Information");
             return (
