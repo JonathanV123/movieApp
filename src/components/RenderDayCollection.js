@@ -6,6 +6,7 @@ export default class RenderDayCollection extends React.Component {
         super();
         this.renderIndividualDay = this.renderIndividualDay.bind(this);
         this.hasMatchingDate = this.hasMatchingDate.bind(this);
+        this.renderDays = this.renderDays.bind(this);
     }
 
     renderIndividualDay() {
@@ -36,10 +37,13 @@ export default class RenderDayCollection extends React.Component {
             && date1.getMonth() === date2.getMonth()
             && date1.getDate() === date2.getDate()
     }
-
+    renderDays(){
+        console.log(this.props.date);
+    }
     render() {
         return (
             <div className="collectionOfDays">
+                <span className="dayOfWeekName">{this.props.name}</span>
                 {this.renderIndividualDay()}
             </div>
         )

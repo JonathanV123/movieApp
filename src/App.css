@@ -125,7 +125,11 @@ body {
 .dayOfWeek {
     color: white;
 }
-
+.dayOfWeekName{
+    color:white;
+    font-size:1.2em;
+    font-family: 'Libre Franklin', sans-serif;
+}
 .dateOfDay {
     color: white;
     font-size: 25px;
@@ -434,7 +438,9 @@ body {
         width: 60px;
         height: 85px;
     }
-
+    .dayOfWeekName{
+        font-size:1em;
+    }
     .dateOfDay {
         font-size: 12px;
         padding: 3px;
@@ -454,6 +460,9 @@ body {
 
     .monthContainer{
         margin-top:5%;
+    }
+    .dayOfWeekName{
+        font-size:0.8em;
     }
 }
 

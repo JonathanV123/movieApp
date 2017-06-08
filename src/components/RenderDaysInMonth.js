@@ -23,6 +23,7 @@ export default class RenderDaysInMonth extends React.Component {
                 <RenderDayCollection
                     dates={this.props.dayNameDays[dayName]}
                     key={dayName}
+                    name={dayName}
                     movieData={this.props.movieData}
                     onMovieClick={this.props.onMovieClick}
                     multipleMovieModal={this.props.multipleMovieModal}
@@ -30,5 +31,6 @@ export default class RenderDaysInMonth extends React.Component {
         }
         return dayOfWeekComponents;
     }
+
 }
 
