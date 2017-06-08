@@ -39,7 +39,7 @@ export default class DisplayMovieInformation extends React.Component {
     displayMovieInformation(currentMovie) {
         return (
             <div className="movieInfo">
-                <div className="testDiv">
+                <div className="headerContainer">
                     <span>
                         <h1  className="purpleColor">Movie Release Calendar</h1>
                     </span>
