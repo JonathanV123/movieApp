@@ -40,8 +40,12 @@ export default class RenderIndividualDay extends React.Component {
     }
 
     onMovieClick() {
-        //call this with whatever current movie
-        this.props.onMovieClick(this.state.currentlyDisplayedMovie);
+        if (this.props.movieData.length > 1) {
+           this.props.multipleMovieModal(this.props.movieData)
+        } else {
+            //call this with whatever current movie
+            this.props.onMovieClick(this.state.currentlyDisplayedMovie);
+        }
     }
 
     render() {

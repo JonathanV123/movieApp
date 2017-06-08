@@ -2,6 +2,7 @@ import React from 'react';
 import SwitchMonthButtons from './components/SwitchMonthButtons.js';
 import RenderDaysInMonth from './components/RenderDaysInMonth.js';
 import DisplayMovieInformation from './components/DisplayMovieInformation.js';
+import MultipleMovieModal from './components/MultipleMovieModal.js';
 import axios from 'axios';
 import './App.css';
 
@@ -35,6 +36,7 @@ class App extends React.Component {
         this.hideMovieInformation = this.hideMovieInformation.bind(this);
         this.renderCurrentMovieModal = this.renderCurrentMovieModal.bind(this);
         this.addZeroForProperAjaxSearch = this.addZeroForProperAjaxSearch.bind(this);
+        this.multipleMovieModal = this.multipleMovieModal.bind(this);
 
 
         this.state = {
@@ -82,7 +84,15 @@ class App extends React.Component {
         let monthNumber = this.state.monthNumber.toString();
         return zero.concat(monthNumber);
     }
-
+    multipleMovieModal(movieData){
+        if (movieData) {
+            this.setState({
+                multipleMovieModalData:movieData,
+            }, function () {
+                console.log(this.state.multipleMovieModalData);
+            });
+        }
+    }
     onMovieClick(movie) {
         //Get Movie ID
         axios.get('https://api.themoviedb.org/3/movie/' + movie.id + '?api_key=a0bab1433b22d4b59bf466484c131da6&&append_to_response=credits,videos')
@@ -105,6 +115,7 @@ class App extends React.Component {
                     castMembers: castNames,
                     currentCrew: getDirector,
                     trailerLink: officialTrailerKey,
+                    multipleMovieModalData:null,
                 });
             }.bind(this));
     }
@@ -116,6 +127,7 @@ class App extends React.Component {
             castMembers: null,
             currentCrew: null,
             trailerLink: null,
+            multipleMovieModalData:null,
         });
     }
 
@@ -256,7 +268,17 @@ class App extends React.Component {
     }
 
     renderCurrentMovieModal() {
-        if (this.state.selectedMovie) {
+        if(this.state.multipleMovieModalData){
+            return(
+                <MultipleMovieModal
+                    selectedMovie={this.state.selectedMovie}
+                    hideMovieInformation={this.hideMovieInformation}
+                    movieData={this.state.multipleMovieModalData}
+                    onMovieClick={this.onMovieClick}
+                />
+            )
+        }
+        else if (this.state.selectedMovie) {
             return (
                 <DisplayMovieInformation
                     selectedMovie={this.state.selectedMovie}
@@ -281,6 +303,7 @@ class App extends React.Component {
                         dayNameDays={this.state.dayNameDays}
                         movieData={this.state.movieData}
                         onMovieClick={this.onMovieClick}
+                        multipleMovieModal={this.multipleMovieModal}
                     />
                 </div>
             )

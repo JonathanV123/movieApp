@@ -85,19 +85,34 @@ body {
     -webkit-justify-content: center;
     justify-content: center;
     font-family: 'Titillium Web', sans-serif;
-    font-size: 2em;
+    font-size: 2.4em;
+    color:#f62d5d;
 }
 
 .youtubeContainer {
-    margin-bottom: 50px;
+    margin-bottom: 72px;
 }
-
+.pinkColor{
+    color: #f62d5d;
+    font-size:2.4em;
+}
 .title {
     font-size: 3em;
-    color: white;
+    color: #805be7;
     font-family: 'Titillium Web', sans-serif;
 }
+.titleContainer{
+    padding: 1%;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-flex-direction: column;
+    flex-direction:column;
 
+}
 .titleDesc {
     font-size: 1.5em;
     color: white;
@@ -154,16 +169,17 @@ body {
 }
 
 .button {
-    height: 50px;
-    width: 75px;
+    height: 70px;
+    width: 90px;
     position: absolute;
-    top: 0px;
-    right: 0px;
+    top: 10px;
+    right: 10px;
     border-radius: 4px;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
     background-color: #fc430a;
     border-color: white;
     font-family: 'Titillium Web', sans-serif;
+    cursor: pointer;
 }
 
 .bgWrapper {
@@ -237,7 +253,58 @@ body {
     align-items: center;
     -webkit-justify-content: center;
     justify-content: center;
-    margin-top:3%;
+    margin-top: 3%;
+}
+
+.multipleMovieSelectionContainer{
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 75px;
+}
+
+.movieModal {
+    background-color: black;
+    width: 342px;
+    height: 430px;
+    background-size: 100% 100%;
+    margin: 2% 1.5% 2% 1.5%;
+    -moz-transition: all .5s;
+    -webkit-transition: all .5s;
+    transition: all .5s;
+    cursor:pointer;
+    background-position:center center;
+}
+.movieModal:hover{
+    background-size: 103% 103%;
+    -moz-box-shadow:    inset 0 0 10px white;
+    -webkit-box-shadow: inset 0 0 10px white;
+    box-shadow:         inset 0 0 10px white;
+}
+.purpleColor{
+    font-family: 'Titillium Web', sans-serif;
+    padding: 1%;
+    color:#805be7;
+    font-size:3em;
+}
+.modalContainer {
+    width: 100%;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-flex-direction:column;
+    flex-direction:column;
 }
 
 .calendarContainer {
