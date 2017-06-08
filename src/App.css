@@ -14,7 +14,7 @@ body {
 .App {
     text-align: center;
     width: 100%;
-    display:-webkit-flex;
+    display: -webkit-flex;
     display: flex;
     -webkit-align-items: center;
     align-items: center;
@@ -27,7 +27,7 @@ body {
 .buttonAndMonthNameContainer {
     width: 100%;
     display: -webkit-flex;
-    display:flex;
+    display: flex;
     -webkit-justify-content: center;
     -webkit-align-items: center;
     -webkit-flex-direction: column;
@@ -42,7 +42,7 @@ body {
     justify-content: space-between;
     -webkit-flex-wrap: wrap;
     flex-wrap: wrap;
-    margin-top:2%;
+    margin-top: 2%;
 }
 
 .individualDay {
@@ -88,23 +88,26 @@ body {
     justify-content: center;
     font-family: 'Titillium Web', sans-serif;
     font-size: 2.4em;
-    font-weight:bold;
-    color:#f62d5d;
+    font-weight: bold;
+    color: #f62d5d;
 }
 
 .youtubeContainer {
     margin-bottom: 72px;
 }
-.pinkColor{
+
+.pinkColor {
     color: #f62d5d;
-    font-size:2.4em;
+    font-size: 2.4em;
 }
+
 .title {
     font-size: 3em;
     color: #805be7;
     font-family: 'Titillium Web', sans-serif;
 }
-.titleContainer{
+
+.titleContainer {
     padding: 1%;
     display: -webkit-flex;
     display: flex;
@@ -113,9 +116,10 @@ body {
     -webkit-justify-content: center;
     justify-content: center;
     -webkit-flex-direction: column;
-    flex-direction:column;
+    flex-direction: column;
 
 }
+
 .titleDesc {
     font-size: 1.5em;
     color: white;
@@ -125,11 +129,13 @@ body {
 .dayOfWeek {
     color: white;
 }
-.dayOfWeekName{
-    color:white;
-    font-size:1.2em;
+
+.dayOfWeekName {
+    color: white;
+    font-size: 1.2em;
     font-family: 'Libre Franklin', sans-serif;
 }
+
 .dateOfDay {
     color: white;
     font-size: 25px;
@@ -167,8 +173,9 @@ body {
     border-bottom: 4px solid white;
     border-top: 4px solid white;
 }
-.moreInfo{
-    font-size:1em;
+
+.moreInfo {
+    font-size: 1em;
 }
 
 .movieInfo {
@@ -261,7 +268,7 @@ body {
     justify-content: center;
 }
 
-.multipleMovieSelectionContainer{
+.multipleMovieSelectionContainer {
     display: -webkit-flex;
     display: flex;
     -webkit-flex-wrap: wrap;
@@ -283,21 +290,24 @@ body {
     -moz-transition: all .5s;
     -webkit-transition: all .5s;
     transition: all .5s;
-    cursor:pointer;
-    background-position:center center;
+    cursor: pointer;
+    background-position: center center;
 }
-.movieModal:hover{
+
+.movieModal:hover {
     background-size: 103% 103%;
-    -moz-box-shadow:    inset 0 0 10px white;
+    -moz-box-shadow: inset 0 0 10px white;
     -webkit-box-shadow: inset 0 0 10px white;
-    box-shadow:         inset 0 0 10px white;
+    box-shadow: inset 0 0 10px white;
 }
-.purpleColor{
+
+.purpleColor {
     font-family: 'Titillium Web', sans-serif;
     padding: 1%;
-    color:#805be7;
-    font-size:3em;
+    color: #805be7;
+    font-size: 3em;
 }
+
 .modalContainer {
     width: 100%;
     display: -webkit-flex;
@@ -308,8 +318,8 @@ body {
     align-items: center;
     -webkit-justify-content: center;
     justify-content: center;
-    -webkit-flex-direction:column;
-    flex-direction:column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
 }
 
 .calendarContainer {
@@ -320,6 +330,7 @@ body {
     width: 109px;
     height: 45px;
 }
+
 .overview {
     display: -webkit-flex;
     display: flex;
@@ -335,6 +346,7 @@ body {
 .director {
     text-align: left;
 }
+
 .leftMonthButton {
     display: inline-block;
     text-align: center;
@@ -346,6 +358,7 @@ body {
     background-color: #805be7;
 
 }
+
 .leftMonthButton:after {
     content: '';
     display: inline-block;
@@ -438,9 +451,11 @@ body {
         width: 60px;
         height: 85px;
     }
-    .dayOfWeekName{
-        font-size:1em;
+
+    .dayOfWeekName {
+        font-size: 1em;
     }
+
     .dateOfDay {
         font-size: 12px;
         padding: 3px;
@@ -458,11 +473,12 @@ body {
         padding: 3px;
     }
 
-    .monthContainer{
-        margin-top:5%;
+    .monthContainer {
+        margin-top: 5%;
     }
-    .dayOfWeekName{
-        font-size:0.8em;
+
+    .dayOfWeekName {
+        font-size: 0.8em;
     }
 }
 
