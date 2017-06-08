@@ -6,6 +6,9 @@ body {
     margin: 0;
     padding: 0;
     background-color: rgb(24, 24, 26);
+    background-repeat: no-repeat;
+    background-image: radial-gradient(at 30% top, rgba(31, 40, 73, 1) 0%, rgba(8, 28, 36, 1) 70%);
+    background-attachment: fixed;
 }
 
 .App {
@@ -19,8 +22,6 @@ body {
     justify-content: center;
     -webkit-flex-direction: column;
     flex-direction: column;
-    background-color: rgb(24, 24, 26);
-    background-image: radial-gradient(at 30% top, rgba(31, 40, 73, 1) 0%, rgba(8, 28, 36, 1) 70%);
 }
 
 .buttonAndMonthNameContainer {
@@ -141,8 +142,6 @@ body {
     font-family: 'Libre Franklin', sans-serif;
     -webkit-flex-direction: column;
     flex-direction: column;
-    background-color: rgb(24, 24, 26);
-    background-image: radial-gradient(at 30% top, rgba(31, 40, 73, 1) 0%, rgba(8, 28, 36, 1) 70%);
 }
 
 .movieDescPosterContainer {
