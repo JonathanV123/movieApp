@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route,indexRoute, hashHistory } from 'react-router'
+import {BrowserRouter as Router, Route} from 'react-router-dom'
 import App from './App';
 import './index.css';
 
-const app = document.getElementById('root');
+const appRootElement = document.getElementById('root');
 
 ReactDOM.render(
-    <Router history={hashHistory}>
-
-    </Router>, app);
+    <Router>
+        <Route path="/" component={App}>
+        </Route>
+    </Router>
+ , appRootElement);

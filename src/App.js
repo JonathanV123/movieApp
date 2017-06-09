@@ -1,5 +1,4 @@
 import React from 'react';
-import { Router, Route, Switch } from 'react-router'
 import SwitchMonthButtons from './components/SwitchMonthButtons.js';
 import RenderDaysInMonth from './components/RenderDaysInMonth.js';
 import DisplayMovieInformation from './components/DisplayMovieInformation.js';
