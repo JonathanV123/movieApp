@@ -27,7 +27,7 @@ export default class MultipleMovieModal extends React.Component {
         let dateDashReplacement = this.props.movieData[0].release_date.replace(/-/g, "/");
         let date = new Date(dateDashReplacement).toString().slice(0,15);
         return(
-            <h2 className ="pinkColor">{date}</h2>
+            <h2 className="pinkColor">{date}</h2>
         )
     }
 

@@ -7,30 +7,29 @@ import axios from 'axios';
 import './App.css';
 
 const DAYS_OF_WEEK = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
-const SHORT_MONTH_NAMES ={
-        0: "Jan",
-        1: "Feb",
-        2: "Mar",
-        3: "Apr",
-        4: "May",
-        5: "June",
-        6: "Jul",
-        7: "Aug",
-        8: "Sept",
-        9: "Oct",
-        10: "Nov",
-        11: "Dec"
+const SHORT_MONTH_NAMES = {
+    0: "Jan",
+    1: "Feb",
+    2: "Mar",
+    3: "Apr",
+    4: "May",
+    5: "June",
+    6: "Jul",
+    7: "Aug",
+    8: "Sept",
+    9: "Oct",
+    10: "Nov",
+    11: "Dec"
 };
 class App extends React.Component {
     constructor() {
         super();
         this.prevMonth = this.prevMonth.bind(this);
         this.nextMonth = this.nextMonth.bind(this);
-        this.getDay = this.getDay.bind(this);
         this.addDaysToArrayCollection = this.addDaysToArrayCollection.bind(this);
-        this.generateDayNameDays = this.generateDayNameDays.bind(this);
+        this.generateIndividualDayStorage = this.generateIndividualDayStorage.bind(this);
         this.getDayName = this.getDayName.bind(this);
-        this.getDaysOfMonthV2 = this.getDaysOfMonthV2.bind(this);
+        this.populateDaysInMonth = this.populateDaysInMonth.bind(this);
         this.componentWillMount = this.componentWillMount.bind(this);
         this.onMovieClick = this.onMovieClick.bind(this);
         this.hideMovieInformation = this.hideMovieInformation.bind(this);
@@ -43,7 +42,7 @@ class App extends React.Component {
             year: new Date().getFullYear(),
             monthName: new Date().getMonth(),
             monthNumber: new Date().getMonth(),
-            dayNameDays: this.generateDayNameDays(),
+            individualDayStorage: this.generateIndividualDayStorage(),
             movieData: [],
         };
     }
@@ -54,24 +53,23 @@ class App extends React.Component {
             monthName: SHORT_MONTH_NAMES[currentMonth],
             monthNumber: currentMonth
         });
-        this.getDay();
         this.addDaysToArrayCollection();
         //Set State in getday was not loading in time for the ajax call so had to move in date methods into here as well.
         let year = this.state.year;
         let month = this.state.monthNumber;
         //Get first and last day of month
         let initNumOfDaysInMonth = new Date(year, month + 1, 0).getDate();
-        let string = initNumOfDaysInMonth.toString();
+        let numOfDaysInMonthString = initNumOfDaysInMonth.toString();
         this.setState({
-            numberOfDaysInCurrentMonth: string,
+            numberOfDaysInCurrentMonth: numOfDaysInMonthString,
         });
-        //End of Get Day date methods
+        // End of Get Day date methods
         // Performing a GET request to grab initial movie data for the month
         if (this.state.monthNumber.toString().length < 2) {
             this.addZeroForProperAjaxSearch();
         }
         axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=a0bab1433b22d4b59bf466484c131da6&language=en-US&region=US&
-        sort_by=popularity.desc&include_adult=false&include_video=false&page=1&release_date.gte=${this.state.year.toString()}-${this.state.monthNumber + 1}-01&release_date.lte=${this.state.year.toString()}-${this.state.monthNumber + 1}-${string}&with_release_type=3`)
+        sort_by=popularity.desc&include_adult=false&include_video=false&page=1&release_date.gte=${this.state.year.toString()}-${this.state.monthNumber + 1}-01&release_date.lte=${this.state.year.toString()}-${this.state.monthNumber + 1}-${numOfDaysInMonthString}&with_release_type=3`)
             .then(function (response) {
                 this.setState({
                     movieData: response.data.results
@@ -84,16 +82,18 @@ class App extends React.Component {
         let monthNumber = this.state.monthNumber.toString();
         return zero.concat(monthNumber);
     }
-    multipleMovieModal(movieData){
+
+    multipleMovieModal(movieData) {
         if (movieData) {
             this.setState({
-                multipleMovieModalData:movieData,
-            }, function () {
-                console.log(this.state.multipleMovieModalData);
+                multipleMovieModalData: movieData,
             });
         }
     }
+
     onMovieClick(movie) {
+        // Force window to scroll back to the top
+        window.scrollTo(0, 0);
         //Get Movie ID
         axios.get('https://api.themoviedb.org/3/movie/' + movie.id + '?api_key=a0bab1433b22d4b59bf466484c131da6&&append_to_response=credits,videos')
             .then(function (response) {
@@ -115,70 +115,83 @@ class App extends React.Component {
                     castMembers: castNames,
                     currentCrew: getDirector,
                     trailerLink: officialTrailerKey,
-                    multipleMovieModalData:null,
+                    multipleMovieModalData: null,
                 });
             }.bind(this));
     }
 
     //Hide movie info pop up when exit button is clicked
     hideMovieInformation() {
+        // Force window to scroll back to the top
+        window.scrollTo(0, 0);
         this.setState({
             selectedMovie: null,
             castMembers: null,
             currentCrew: null,
             trailerLink: null,
-            multipleMovieModalData:null,
+            multipleMovieModalData: null,
         });
     }
 
     addDaysToArrayCollection() {
-        //DayNameDays returns an object keyed by day name. Each day name has an empty array
-        var dayNameDays = this.generateDayNameDays();
-        //Days of month returns each day in current month
-        var daysOfMonth = this.getDaysOfMonthV2();
-        //First day in month is index 0 in array retyrned from getDaysOfMonthV2
-        var firstDateInMonth = daysOfMonth[0];
-        //create null object to act as last days of previous month in calendar view
-        //attaching functions so program won't fail
+        // individualDayStorage returns an object keyed by day name.
+        // Example Output: individualDayStorage = {Sun:[], Mon:[], Tues:[], ect...}
+        var individualDayStorage = this.generateIndividualDayStorage();
+        // All allDaysOfMonth returns each day in current month as a date object
+        // Example Output: allDaysOfMonth = [Thu Mar 01 2018, Fri Mar 02 2018, Sat Mar 3 2018, ect...]
+        var allDaysOfMonth = this.populateDaysInMonth();
+        // First day in month is index 0 in array returned from populateDaysInMonth
+        // Example Output: firstDateInMonth = Thu Mar 01 2018
+        var firstDateInMonth = allDaysOfMonth[0];
+        // Create null object to act as last days of previous month in calendar view
+        // attaching functions so program won't fail
         var nullDate = {
-            getDate: () => {
-            },
-            getMonth: () => {
-            },
-            getYear: () => {
-            }
-
+            getDate: () => {},
+            getMonth: () => {},
+            getYear: () => {}
         };
-
         var i = 0;
-        //Add Null Dates to array
+        // Add Null Dates to days that require it
+        // Example Output: If Thursday was the first day of month then while i < 4 
+        // (Thurs is the 4th index in date object)  Sun, Mon Tues, Wed would get nullDate pushed.
         while (i < firstDateInMonth.getDay()) {
-            dayNameDays[DAYS_OF_WEEK[i]].push(nullDate);
+            individualDayStorage[DAYS_OF_WEEK[i]].push(nullDate);
             i++;
         }
-        daysOfMonth.forEach((dateInMonth) => {
-            //Get index to push into. Once found push that date into it
-            dayNameDays[this.getDayName(dateInMonth)].push(dateInMonth)
+        allDaysOfMonth.forEach((dateInMonth) => {
+            // Get index to push into. Once found push that date into it
+            // Example Iteration: 
+            // individualDayStorage["Tues"].push(Tues Mar 27 2018)
+            individualDayStorage[this.getDayName(dateInMonth)].push(dateInMonth)
         });
         //Set state of all collected dates
-        this.setState({dayNameDays: dayNameDays});
-    }
-    //Create an object that is keyed by the name of the days. Each containing an empty array for future date storage
-    // of that particular day.
-    generateDayNameDays() {
-        var dayNameDays = {};
-        DAYS_OF_WEEK.forEach((dayName) => {
-            dayNameDays[dayName] = [];
+        this.setState({
+            individualDayStorage: individualDayStorage
         });
-        return dayNameDays;
+    }
+
+    // Create an object that is keyed by the name of the days. Each containing an empty array for future date storage
+    // of that particular day. 
+    // Example:
+    // individualDayStorage = {Sun:[], Mon:[], Tues:[], ect...}
+    generateIndividualDayStorage() {
+        var individualDayStorage = {};
+        DAYS_OF_WEEK.forEach((dayName) => {
+            individualDayStorage[dayName] = [];
+        });
+        return individualDayStorage;
     }
 
     getDayName(date) {
-        //Get the right index of Days_Of_Week to push into
+        // DAYS_OF_WEEK =  ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"]
+        // Example: date = Mon Mar 05 2018 as a date object
+        // date.getDay() would be 1 as Mon has an index 1
+        // function would return "Mon"
         return DAYS_OF_WEEK[date.getDay()];
     }
+
     //While in current month, loop through each individual date in month returning an array storing all dates
-    getDaysOfMonthV2() {
+    populateDaysInMonth() {
         var daysInMonth = [];
         //first day of this.state.monthNumber
         var date = new Date(this.state.year, this.state.monthNumber);
@@ -197,7 +210,7 @@ class App extends React.Component {
         var prevMonth = date.setMonth(date.getMonth() - 1);
         var newPrevMonth = new Date(prevMonth);
         let newPrevMonthNum = newPrevMonth.getMonth();
-        let initNumOfDaysInMonth = new Date(this.state.year, newPrevMonthNum + 1, 0).getDate();
+        let numOfDaysInMonth = new Date(this.state.year, newPrevMonthNum + 1, 0).getDate();
         if (this.state.monthNumber === 0) {
             this.setState({
                 year: year - 1
@@ -206,17 +219,16 @@ class App extends React.Component {
         this.setState({
                 monthNumber: newPrevMonthNum,
                 monthName: monthName[newPrevMonthNum],
-                numberOfDaysInCurrentMonth: initNumOfDaysInMonth,
+                numberOfDaysInCurrentMonth: numOfDaysInMonth,
                 movieData: [],
             },
             function () {
-                this.generateDayNameDays();
-                this.getDay();
+                this.generateIndividualDayStorage();
                 this.addDaysToArrayCollection();
             }
         );
         axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=a0bab1433b22d4b59bf466484c131da6&language=en-US&region=US&
-        sort_by=popularity.desc&include_adult=false&include_video=false&page=1&release_date.gte=${this.state.year.toString()}-${newPrevMonthNum + 1}-01&release_date.lte=${this.state.year.toString()}-${newPrevMonthNum + 1}-${initNumOfDaysInMonth}&with_release_type=3`)
+        sort_by=popularity.desc&include_adult=false&include_video=false&page=1&release_date.gte=${this.state.year.toString()}-${newPrevMonthNum + 1}-01&release_date.lte=${this.state.year.toString()}-${newPrevMonthNum + 1}-${numOfDaysInMonth}&with_release_type=3`)
             .then(function (response) {
                 this.setState({
                     movieData: response.data.results
@@ -229,58 +241,47 @@ class App extends React.Component {
         let year = this.state.year;
         let date = new Date(this.state.year, this.state.monthNumber);
         var nextMonth = date.setMonth(date.getMonth() + 1);
-        var newNextMonth = new Date(nextMonth);
-        let newNextMonthNum = newNextMonth.getMonth();
-        let initNumOfDaysInMonth = new Date(this.state.year, newNextMonthNum + 1, 0).getDate();
+        var newCurrentMonth = new Date(nextMonth);
+        let newCurrentMonthNum = newCurrentMonth.getMonth();
+        let numOfDaysInMonth = new Date(this.state.year, newCurrentMonthNum + 1, 0).getDate();
         if (this.state.monthNumber === 11) {
             this.setState({
                 year: year + 1,
             })
         }
         this.setState({
-                monthNumber: newNextMonthNum,
-                monthName: monthName[newNextMonthNum],
-                numberOfDaysInCurrentMonth: initNumOfDaysInMonth,
+                monthNumber: newCurrentMonthNum,
+                monthName: monthName[newCurrentMonthNum],
+                numberOfDaysInCurrentMonth: numOfDaysInMonth,
                 movieData: [],
             },
             function () {
-                this.generateDayNameDays();
-                this.getDay();
+                this.generateIndividualDayStorage();
                 this.addDaysToArrayCollection();
             }
         );
         axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=a0bab1433b22d4b59bf466484c131da6&language=en-US&region=US&
-        sort_by=popularity.desc&include_adult=false&include_video=false&page=1&release_date.gte=${this.state.year.toString()}-${newNextMonthNum + 1}-01&release_date.lte=${this.state.year.toString()}-${newNextMonthNum + 1}-${initNumOfDaysInMonth}&with_release_type=3`)
+        sort_by=popularity.desc&include_adult=false&include_video=false&page=1&release_date.gte=${this.state.year.toString()}-${newCurrentMonthNum + 1}-01&release_date.lte=${this.state.year.toString()}-${newCurrentMonthNum + 1}-${numOfDaysInMonth}&with_release_type=3`)
             .then(function (response) {
                 this.setState({
                     movieData: response.data.results
                 });
             }.bind(this));
     }
-    //Get number of days in current month. I don't think function is needed anymore. Flagging for refactor *******
-    getDay() {
-        let year = this.state.year;
-        let month = this.state.monthNumber;
-        let initNumOfDaysInMonth = new Date(year, month + 1, 0).getDate();
-        this.setState({
-            numberOfDaysInCurrentMonth: initNumOfDaysInMonth,
-        })
-    }
 
     renderCurrentMovieModal() {
-        if(this.state.multipleMovieModalData){
-            return(
-                <MultipleMovieModal
+        if (this.state.multipleMovieModalData) {
+            return ( 
+                <MultipleMovieModal 
                     selectedMovie={this.state.selectedMovie}
                     hideMovieInformation={this.hideMovieInformation}
                     movieData={this.state.multipleMovieModalData}
                     onMovieClick={this.onMovieClick}
                 />
             )
-        }
-        else if (this.state.selectedMovie) {
+        } else if (this.state.selectedMovie) {
             return (
-                <DisplayMovieInformation
+                <DisplayMovieInformation 
                     selectedMovie={this.state.selectedMovie}
                     hideMovieInformation={this.hideMovieInformation}
                     currentMovieCast={this.state.castMembers}
@@ -289,32 +290,31 @@ class App extends React.Component {
                 />
             )
         } else {
-            return (
-                <div className="calendarContainer">
-                    <SwitchMonthButtons
-                        monthName={this.state.monthName}
-                        nextMonth={this.prevMonth}
-                        prevMonth={this.nextMonth}
-                    />
-                    <RenderDaysInMonth
-                        theCurrentYear={this.state.year}
-                        theCurrentMonth={this.state.monthNumber}
-                        numberOfDaysInMonth={this.state.numberOfDaysInCurrentMonth}
-                        dayNameDays={this.state.dayNameDays}
-                        movieData={this.state.movieData}
-                        onMovieClick={this.onMovieClick}
-                        multipleMovieModal={this.multipleMovieModal}
-                    />
-                </div>
+            return ( 
+            <div className="calendarContainer">
+                <SwitchMonthButtons 
+                    monthName={this.state.monthName}
+                    nextMonth={this.prevMonth}
+                    prevMonth={this.nextMonth}
+                /> 
+                <RenderDaysInMonth 
+                    theCurrentYear={this.state.year}
+                    theCurrentMonth={this.state.monthNumber}
+                    individualDayStorage={this.state.individualDayStorage}
+                    movieData={this.state.movieData}
+                    onMovieClick={this.onMovieClick}
+                    multipleMovieModal={this.multipleMovieModal}
+                /> 
+            </div>
             )
         }
     }
 
     render() {
-        return (
-            <div className="App">
-                {this.renderCurrentMovieModal()}
-            </div>
+        return ( 
+        <div className="App"> 
+            {this.renderCurrentMovieModal()}
+        </div>
         );
     }
 }

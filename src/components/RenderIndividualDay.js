@@ -45,6 +45,8 @@ export default class RenderIndividualDay extends React.Component {
         } else {
             //call this with whatever current movie
             this.props.onMovieClick(this.state.currentlyDisplayedMovie);
+                // Force window to scroll back to the top
+                window.scrollTo(0, 0);
         }
     }
 
