@@ -13,7 +13,7 @@ export default class DisplayMovieInformation extends React.Component {
     renderCast() {
         return this.props.currentMovieCast.slice(0, 4).map((castMember, index) => {
             return (
-                <span key={Math.random()} className="actor">
+                <span key={castMember} className="actor">
                         {castMember},
                 </span>
             )
@@ -38,22 +38,22 @@ export default class DisplayMovieInformation extends React.Component {
 
     displayMovieInformation(currentMovie) {
         return (
-            <div key={Math.random()} className="movieInfo">
-                <div className="testDiv">
+            <div className="movieInfo">
+                <div className="headerContainer">
                     <span>
-                        <h1>Movie Release Calendar</h1>
+                        <h1  className="purpleColor">Movie Release Calendar</h1>
                     </span>
                     <span>
-                        <h2>Movies Biggest Releases</h2>
+                        <h2 className="pinkColor">Movies Biggest Releases</h2>
                     </span>
                 </div>
                 <div className="movieDescPosterContainer"
                      style={{backgroundImage: "url(" + "https://image.tmdb.org/t/p/w1400_and_h450_bestv2" + currentMovie.backdrop_path + ")"}}
-                     key={Math.random()}>
+                >
                     <div className="posterContainer">
                         <div className="poster"
                              style={{backgroundImage: "url(" + "https://image.tmdb.org/t/p/w300_and_h450_bestv2" + currentMovie.poster_path + ")"}}
-                             key={Math.random()}>
+                        >
                         </div>
                     </div>
                     <div className="descriptionContainer">

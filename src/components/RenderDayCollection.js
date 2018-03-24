@@ -23,6 +23,7 @@ export default class RenderDayCollection extends React.Component {
                     date={currentIterationDate} key={Math.random()}
                     movieData={moviesReleasedOnCurrentIterationDate}
                     onMovieClick={this.props.onMovieClick}
+                    multipleMovieModal={this.props.multipleMovieModal}
                 />
             );
         }
@@ -35,10 +36,10 @@ export default class RenderDayCollection extends React.Component {
             && date1.getMonth() === date2.getMonth()
             && date1.getDate() === date2.getDate()
     }
-
     render() {
         return (
             <div className="collectionOfDays">
+                <span className="dayOfWeekName">{this.props.name}</span>
                 {this.renderIndividualDay()}
             </div>
         )

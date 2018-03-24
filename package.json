@@ -2,9 +2,11 @@
   "name": "react-movie-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://jonathanvoxland.com/projects/movieApp",
   "dependencies": {
     "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "react-youtube": "^7.5.0"
   },
   "devDependencies": {
     "axios": "^0.16.1",

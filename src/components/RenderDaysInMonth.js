@@ -17,17 +17,21 @@ export default class RenderDaysInMonth extends React.Component {
 
     renderDaysOfWeek() {
         var dayOfWeekComponents = [];
-        let daysOfWeek = this.props.dayNameDays;
+        let daysOfWeek = this.props.individualDayStorage;
         for (let dayName in daysOfWeek) {
             dayOfWeekComponents.push(
                 <RenderDayCollection
-                    dates={this.props.dayNameDays[dayName]}
+                    dates={this.props.individualDayStorage[dayName]}
                     key={dayName}
+                    name={dayName}
                     movieData={this.props.movieData}
                     onMovieClick={this.props.onMovieClick}
-                />);
+                    multipleMovieModal={this.props.multipleMovieModal}
+                />
+            );
         }
         return dayOfWeekComponents;
     }
+
 }
 
