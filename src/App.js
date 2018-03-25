@@ -71,8 +71,15 @@ class App extends React.Component {
         axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=a0bab1433b22d4b59bf466484c131da6&language=en-US&region=US&
         sort_by=popularity.desc&include_adult=false&include_video=false&page=1&release_date.gte=${this.state.year.toString()}-${this.state.monthNumber + 1}-01&release_date.lte=${this.state.year.toString()}-${this.state.monthNumber + 1}-${numOfDaysInMonthString}&with_release_type=3`)
             .then(function (response) {
+                // Filter out movies that don't have a poster
+                let filteredMovieData = response.data.results;
+                filteredMovieData.forEach((movie, i) =>{
+                    if(movie.poster_path === null){
+                        filteredMovieData.splice(i)
+                    }
+                });
                 this.setState({
-                    movieData: response.data.results
+                    movieData: filteredMovieData
                 });
             }.bind(this));
     }
@@ -230,8 +237,15 @@ class App extends React.Component {
         axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=a0bab1433b22d4b59bf466484c131da6&language=en-US&region=US&
         sort_by=popularity.desc&include_adult=false&include_video=false&page=1&release_date.gte=${this.state.year.toString()}-${newPrevMonthNum + 1}-01&release_date.lte=${this.state.year.toString()}-${newPrevMonthNum + 1}-${numOfDaysInMonth}&with_release_type=3`)
             .then(function (response) {
+                   // Filter out movies that don't have a poster
+                   let filteredMovieData = response.data.results;
+                   filteredMovieData.forEach((movie, i) =>{
+                       if(movie.poster_path === null){
+                           filteredMovieData.splice(i)
+                       }
+                   });
                 this.setState({
-                    movieData: response.data.results
+                    movieData: filteredMovieData
                 });
             }.bind(this));
     }
@@ -263,8 +277,15 @@ class App extends React.Component {
         axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=a0bab1433b22d4b59bf466484c131da6&language=en-US&region=US&
         sort_by=popularity.desc&include_adult=false&include_video=false&page=1&release_date.gte=${this.state.year.toString()}-${newCurrentMonthNum + 1}-01&release_date.lte=${this.state.year.toString()}-${newCurrentMonthNum + 1}-${numOfDaysInMonth}&with_release_type=3`)
             .then(function (response) {
+                  // Filter out movies that don't have a poster
+                  let filteredMovieData = response.data.results;
+                  filteredMovieData.forEach((movie, i) =>{
+                      if(movie.poster_path === null){
+                          filteredMovieData.splice(i)
+                      }
+                  });
                 this.setState({
-                    movieData: response.data.results
+                    movieData: filteredMovieData
                 });
             }.bind(this));
     }
